@@ -971,3 +971,26 @@ main{ padding-top:120px }
   outline: none;
   box-shadow: none;
 }
+
+/* === Fuente de marca (display) === */
+:root{
+  --brand-display: 'TAN Nimbus', 'Open Sans', system-ui, sans-serif;
+}
+
+/* Hero principal (home) */
+.hero-title{
+  font-family: var(--brand-display);
+  font-weight: 400;              /* TAN Nimbus es display, no necesita 700 */
+  letter-spacing: 1px;           /* un toque de tracking */
+  text-transform: uppercase;     /* asegura mayúsculas (por si el texto cambia) */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hero de la galería (si querés el mismo look ahí) */
+.gallery-hero h1{
+  font-family: var(--brand-display);
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
