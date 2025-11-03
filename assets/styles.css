@@ -685,3 +685,289 @@ body.modal-open {
     width: 0;
     z-index: -1;
 }
+
+/* ====== Gallery page specific styles (moved from gallery.html) ====== */
+main{ padding-top:120px }
+
+    .breadcrumbs{
+      width:100%;max-width:1400px;margin:0 auto 20px auto;padding:0 28px;
+      font-size:13px;color:var(--muted)
+    }
+    .breadcrumbs a{ color:var(--accent); text-decoration:none }
+    .breadcrumbs span{ opacity:.7 }
+
+    .gallery-hero{
+      height:46vh; min-height:320px; position:relative; margin-top:80px;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      background:linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,.6)),
+                 url('https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
+      border-bottom:1px solid var(--tint-20);
+    }
+    .gallery-hero h1{ font-size:40px; letter-spacing:2px; margin:0 0 8px 0 }
+    .gallery-hero p{ color:var(--muted); margin:0 auto; max-width:760px }
+
+    .events{ width:100%; max-width:1400px; margin:32px auto 84px; padding:0 28px; }
+
+    .grid{
+      display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+    }
+    @media (max-width:1024px){ .grid{ grid-template-columns:repeat(2,1fr) } }
+    @media (max-width:560px){ .grid{ grid-template-columns:1fr } .events{ padding:0 18px } }
+
+    .card{
+      background:color-mix(in srgb, var(--tint) 6%, var(--bg));
+      border:1px solid var(--tint-20); border-radius:18px; overflow:hidden;
+      display:flex; flex-direction:column;
+      transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      box-shadow:0 12px 34px rgba(0,0,0,.28);
+      cursor:pointer;
+    }
+    .card:hover{ transform:translateY(-3px); border-color:var(--tint-30); box-shadow:0 14px 36px rgba(2,8,23,.30) }
+    .card img{ width:100%; aspect-ratio:3/4; object-fit:cover; display:block }
+    .card .body{ padding:18px 18px 8px }
+    .card h3{ margin:0 0 6px 0; font-size:18px; letter-spacing:.4px }
+    .card p{ margin:0 0 12px 0; color:var(--muted); font-size:14px }
+    .card .actions{ margin-top:auto; padding:0 18px 18px }
+    .btn-link{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px;
+      border:1px solid var(--tint-20); background:transparent; color:var(--ink); text-decoration:none;
+      text-transform:uppercase; letter-spacing:.8px; font-size:12px; transition:all .2s ease
+    }
+    .btn-link:hover{ background:var(--accent); color:#000; border-color:transparent; transform:translateY(-1px) }
+
+    .photos{ display:grid; gap:16px; grid-template-columns:repeat(12,1fr) }
+    .photo{ grid-column:span 3; border:1px solid var(--tint-20); border-radius:14px; overflow:hidden }
+    .photo img{ width:100%; aspect-ratio:5/7; object-fit:cover; display:block }
+    @media (max-width:1200px){ .photo{ grid-column:span 4 } }
+    @media (max-width:900px){  .photo{ grid-column:span 6 } }
+    @media (max-width:560px){  .photo{ grid-column:span 12 } }
+
+    /* ==== Gallery cards: imagen más angosta (3/4) y sin borde ==== */
+.card .thumb{
+  display:block;
+  width:100%;
+  aspect-ratio:3/4;           /* más fina (angosta) que 5/7, pero no tan extrema */
+  overflow:hidden;
+  background: transparent;
+  border:none;
+}
+
+.card .thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  border:none;
+  outline:none;
+  box-shadow:none;
+}
+
+/* ==== Overrides: cards cuadradas, sin bordes y descripción en negro ==== */
+
+/* Quitar radios y bordes de la tarjeta completa */
+.card{
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: hidden;               /* asegura cortes cuadrados en la imagen */
+  box-shadow: 0 12px 34px rgba(0,0,0,.28); /* conserva la sombra si te gusta */
+}
+
+/* Miniatura: más “fina” y sin bordes redondeados ni borde */
+.card img{ aspect-ratio: auto !important; }  /* anula el 5/7 previo si quedó */
+.card .thumb{
+  display:block;
+  width:100%;
+  aspect-ratio:3/4;               /* imagen más angosta */
+  overflow:hidden;
+  background: transparent;
+  border:none;
+  border-radius: 0 !important;
+}
+.card .thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  border:0 !important;
+  border-radius: 0 !important;
+  outline:0;
+  box-shadow:none;
+}
+
+/* Contenedor de texto: fondo negro pegado a la foto, sin bordes, esquinas cuadradas */
+.card .body{
+  background:#000;                /* fondo negro debajo de la foto */
+  padding:14px 18px 12px;         /* ajustá si querés más/menos aire */
+  border:none !important;
+  border-radius: 0 !important;
+}
+
+/* Título y descripción en blanco, sin bordes */
+.card h3{
+  margin:0 0 6px 0;
+  color: var(--ink);
+}
+.card p{
+  margin:0 0 0 0;
+  color: var(--ink) !important;   /* letras blancas */
+  border:none !important;
+}
+
+/* (opcional) si querés quitar también la sombra de la card: */
+/* .card{ box-shadow:none; } */
+
+/* Vista de detalle: fotos sin borde y sin radios */
+.photo{
+  border:none !important;
+  border-radius:0 !important;
+}
+.photo img{
+  border:none !important;
+  border-radius:0 !important;
+}
+
+/* ==== Gallery: 3 columnas y solo 2 filas visibles (3 x 2) ==== */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr)); /* 3 columnas fijas */
+  column-gap: 32px;   /* espacio entre columnas */
+  row-gap: 56px;      /* espacio entre filas (más aire entre arriba y abajo) */
+}
+
+/* oculta cualquier tarjeta a partir de la 7 (quedan 6 visibles: 3 arriba + 3 abajo) */
+.grid > .card:nth-child(n+7){
+  display: none;
+}
+
+/* opcional: un pelín más de separación extra a partir de la segunda fila */
+.grid > .card:nth-child(n+4){
+  margin-top: 8px; /* se suma al row-gap */
+}
+
+/* Responsivo: en pantallas medianas, 2 columnas */
+@media (max-width: 1024px){
+  .grid{
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    column-gap: 28px;
+    row-gap: 44px;
+  }
+  /* mostrar 4 tarjetas (2x2) en pantallas medianas */
+  .grid > .card{ display: block; }
+  .grid > .card:nth-child(n+5){ display:none; }
+}
+
+/* Responsivo: en móviles, 1 columna (y mostramos 3 para no alargar demasiado) */
+@media (max-width: 560px){
+  .grid{
+    grid-template-columns: 1fr;
+    column-gap: 0;
+    row-gap: 36px;
+  }
+  .grid > .card{ display:block; }
+  .grid > .card:nth-child(n+4){ display:none; }
+}
+/* ===== Próximos eventos: más angostas, misma altura ===== */
+.events-grid{
+  /* en lugar de estirarse a 1fr, fijamos un ancho de tarjeta y centramos el grid */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 380px));
+  justify-content: center;         /* centra el conjunto de tarjetas */
+  gap: 36px 40px;                  /* fila x columna */
+}
+
+.event-card{
+  width: 100%;
+  max-width: 380px;                /* tope de ancho por tarjeta */
+  display: flex;
+  flex-direction: column;          /* para alinear botón al fondo */
+  min-height: 220px;               /* garantiza altura mínima común */
+  border-radius: 0;                /* esquinas cuadradas si querés coherencia */
+}
+
+.event-info{
+  margin-bottom: 24px;
+  flex: 1;                         /* empuja el botón hacia abajo */
+}
+
+/* Botón ancho consistente */
+.event-btn{
+  width: 100%;
+}
+
+/* Si querés aún más chicas, baja estos dos números en conjunto:
+   - 380px (arriba) a 360 / 340
+   - en grid-template-columns, baja 380 del max también */
+
+   /* ===== Lightbox (gallery) ===== */
+.lightbox{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.85);
+  backdrop-filter: blur(4px);
+  display: none;                 /* oculto por defecto */
+  align-items: center; justify-content: center;
+  z-index: 4000;
+  padding: 32px;
+}
+.lightbox.active{ display:flex; }
+
+.lightbox-inner{
+  position: relative;
+  max-width: 86vw; max-height: 86vh;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.lightbox-img{
+  max-width: 86vw; max-height: 86vh;
+  width: auto; height: auto;
+  border: none; border-radius: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  user-select: none;
+}
+
+.lightbox-btn{
+  position:absolute; top:50%; transform: translateY(-50%);
+  width: 44px; height: 44px;
+  display:grid; place-items:center;
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  color: #fff; cursor: pointer;
+  transition: background .2s ease, transform .1s ease;
+}
+.lightbox-btn:hover{ background: rgba(255,255,255,.22); }
+.lightbox-btn:active{ transform: translateY(-50%) scale(.96); }
+
+.lb-prev{ left: -58px; }
+.lb-next{ right: -58px; }
+
+.lb-close{
+  position:absolute; top:-56px; right:-8px;
+  width:38px; height:38px; border-radius:999px;
+  background: rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff; display:grid; place-items:center;
+  cursor:pointer;
+}
+
+@media (max-width: 700px){
+  .lightbox{ padding:16px; }
+  .lightbox-inner{ max-width: 94vw; max-height: 80vh; }
+  .lightbox-img{ max-width: 94vw; max-height: 80vh; }
+  .lb-prev{ left: -10px; }
+  .lb-next{ right: -10px; }
+  .lb-close{ top:-48px; right:0; }
+}
+/* ===== Hacer las fotos clickeables en la vista de evento ===== */
+.photos { position: relative; z-index: 1; }
+
+.photos .photo,
+.photos .photo * {
+  pointer-events: auto;           /* asegúrate de que nada coma el click */
+}
+
+.photos img{
+  cursor: zoom-in;                /* cursor de “ampliar” */
+  display: block;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
