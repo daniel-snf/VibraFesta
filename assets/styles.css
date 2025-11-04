@@ -114,20 +114,53 @@ nav{
    RESPONSIVE HEADER (<= 768px)
    ========================================================= */
 @media (max-width:768px){
-  :root{ --header-h:64px; }                /* header más bajo */
-  nav{ height:var(--header-h); padding:0 14px; }
+  :root{ --header-h:64px; }
 
-  /* Logo visible y proporcionado en móvil */
-  .logo{ margin-left:0; overflow:visible; }
-  .logo img{ height:48px; width:auto; object-fit:contain; object-position:left center; }
+  /* Header en grilla: [hamburguesa] [logo] [spacer] */
+  nav{
+    height: var(--header-h);
+    padding: 0 8px;
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    align-items: center;
+  }
 
-  /* Ocultar menú de escritorio / mostrar hamburguesa */
+  /* Botón hamburguesa a la IZQUIERDA */
+  .menu-toggle{
+    display:block;
+    grid-column:1;
+    justify-self:start;
+    font-size:24px;
+    background:none; border:0; color:var(--ink);
+  }
+
+  /* Logo CENTRADO */
+  .logo{
+    grid-column:2;
+    justify-self:center;
+    margin-left:0;
+    overflow:visible;
+    height: var(--header-h);
+    display:flex; align-items:center;
+  }
+  .logo img{
+    height: 112px;               
+    width:auto;
+    object-fit:contain;
+    object-position:center;
+    display:block;
+  }
+
+  /* Espaciador a la derecha: equilibra visualmente */
+  .nav-spacer{ grid-column:3; width:44px; height:1px; }
+
+  /* Ocultamos menú de escritorio */
   .nav-links{ display:none !important; }
-  .menu-toggle{ display:block; font-size:24px; }
 
-  /* Panel móvil alineado bajo el header fijo */
-  .mobile-menu{ top:var(--header-h); }
+  /* Panel del menú móvil bajo el header fijo */
+  .mobile-menu{ top: var(--header-h); }
 }
+
 
 /* =========================================================
    HERO

@@ -73,26 +73,31 @@
   <header>
     <div class="container">
       <nav>
-        <a href="index.html" class="logo" aria-label="VIBRA FESTA - Inicio">
-          <img src="img/logo.png" alt="VIBRA FESTA">
+      <!-- Botón hamburguesa IZQ -->
+      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+
+      <!-- Logo CENTRADO -->
+      <a href="index.html#home" class="logo" aria-label="VIBRA FESTA - Inicio">
+        <img src="img/logo.png" alt="VIBRA FESTA">
+      </a>
+
+      <!-- Espaciador a la derecha (equilibrio visual) -->
+      <span class="nav-spacer" aria-hidden="true"></span>
+    </nav>
+      <!-- Panel del menú móvil (reposado bajo el header) -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html#home">Inicio</a>
+      <a href="index.html#vendors">Ser expositor</a>
+      <a href="index.html#events">Eventos</a>
+      <a href="index.html#about">Sobre nosotros</a>
+      <a href="index.html#contact">Contacto</a>
+      <a href="gallery.html">Galería</a>
+
+      <div class="menu-footer">
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link">
+          <i class="fab fa-instagram" aria-hidden="true"></i>
+          <span>Instagram</span>
         </a>
-        <ul class="nav-links">
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/#vendors">Ser expositor</a></li>
-          <li><a href="/#about">Sobre nosotros</a></li>
-          <li><a href="/galeria" aria-current="page">Eventos</a></li>
-          <li><a href="/#contact">Contacto</a></li>
-        </ul>
-        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-          <i class="fas fa-bars" aria-hidden="true"></i>
-        </button>
-      </nav>
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="/">Inicio</a>
-        <a href="/#vendors">Ser expositor</a>
-        <a href="/#about">Sobre nosotros</a>
-        <a href="/galeria" aria-current="page">Eventos</a>
-        <a href="/#contact">Contacto</a>
       </div>
     </div>
   </header>
