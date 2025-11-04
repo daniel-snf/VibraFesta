@@ -46,21 +46,26 @@ document.addEventListener('DOMContentLoaded', function() {
   // ================================
   // Smooth scrolling for anchor links
   // ================================
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if (!targetId || targetId === '#') return;
-
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        e.preventDefault();
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
-        if (mobileMenu) mobileMenu.classList.remove('active');
-      }
-    });
+  document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+          // Manejar enlaces que empiezan con /#
+          let targetId = this.getAttribute('href');
+          if (targetId.startsWith('/#')) {
+              targetId = targetId.substring(1); // Remover la barra inicial
+          }
+          
+          if (!targetId || targetId === '#') return;
+  
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+              e.preventDefault();
+              window.scrollTo({
+                  top: targetElement.offsetTop - 80,
+                  behavior: 'smooth'
+              });
+              if (mobileMenu) mobileMenu.classList.remove('active');
+          }
+      });
   });
 
   // ================================
