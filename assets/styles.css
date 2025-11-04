@@ -144,7 +144,7 @@ nav{
     display:flex; align-items:center;
   }
   .logo img{
-    height: 322px;               
+    height: 112px;               
     width:auto;
     object-fit:contain;
     object-position:center;
