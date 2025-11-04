@@ -170,11 +170,11 @@
 
         eventos.sort((a,b)=> new Date(b.date) - new Date(a.date));
         grid.innerHTML = eventos.map(ev => `
-          <article class="card" data-href="/galeria?event=${encodeURIComponent(ev.slug || ev.title)}">
+          <article class="card" data-href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
             <img src="${ev.cover}" alt="${ev.title} — portada" loading="lazy" decoding="async">
             <div class="body"><h3>${ev.title}</h3><p>Fotos de la edición ${ev.title}.</p></div>
             <div class="actions">
-              <a class="btn-link" href="/galeria?event=${encodeURIComponent(ev.slug || ev.title)}">
+              <a class="btn-link" href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
                 Ver evento <i class="fa fa-arrow-right" aria-hidden="true"></i>
               </a>
             </div>
