@@ -459,7 +459,7 @@ main{ padding-top:120px; }
   height:46vh; min-height:320px; position:relative; margin-top:80px;
   display:flex; align-items:center; justify-content:center; text-align:center;
   background:linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,.6)),
-             url('https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg?auto=compress&cs=tinysrgb&w=1920') center/cover no-repeat;
+             url('assets/gallery/vibra_portal.jpeg') center/cover no-repeat;
   border-bottom:1px solid var(--tint-20);
 }
 .gallery-hero h1{
@@ -498,10 +498,10 @@ main{ padding-top:120px; }
 .card h3{ margin:0 0 6px; color:var(--ink); font-size:18px; letter-spacing:.4px; }
 .card p{ margin:0; color:var(--ink); }
 
-/* Mostrar 6 (3x2) en desktop; 4 en tablet; 3 en móvil */
+/* Mostrar 6 (3x2) en desktop; 4 en tablet; 3 en móvil 
 .grid > .card:nth-child(n+7){ display:none; }
 @media (max-width:1024px){ .grid > .card{ display:block; } .grid > .card:nth-child(n+5){ display:none; } }
-@media (max-width:560px){ .grid > .card{ display:block; } .grid > .card:nth-child(n+4){ display:none; } }
+@media (max-width:560px){ .grid > .card{ display:block; } .grid > .card:nth-child(n+4){ display:none; } }*/
 
 /* Fotos dentro de página de evento */
 .photos{ display:grid; gap:16px; grid-template-columns:repeat(12,1fr); position:relative; z-index:1; }
