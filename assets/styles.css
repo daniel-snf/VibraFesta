@@ -63,7 +63,7 @@ nav {
   align-items: center;
   height: var(--header-h);    /* caja del alto del header */
   overflow: hidden;           /* ← recorte */
-  margin-left: -256px; 
+  margin-left: -206px; 
 }
 .logo img {
   height: 430px;              /* visible grande */
