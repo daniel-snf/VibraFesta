@@ -68,7 +68,7 @@ nav{
 }
 .logo img{
   /* En desktop usamos el “recorte” alto; en móvil se ajusta más abajo */
-  height:430px; width:auto; display:block;
+  height:680px; width:auto; display:block;
   object-fit:cover; object-position:center;
 }
 .logo span{ color:var(--accent-2); }
