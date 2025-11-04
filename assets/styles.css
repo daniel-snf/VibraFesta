@@ -145,26 +145,60 @@ nav {
 
 /* Vista móvil */
 @media (max-width: 768px){
-  :root{ --header-h: 64px; }        /* header un poco más alto en móvil */
+  :root{ --header-h: 64px; }
 
-  /* Anula el recorte y el margen negativo del desktop */
+  header{ position: fixed; top:0; left:0; right:0; z-index: 2000; }
+
+  nav{
+    height: var(--header-h);
+    padding: 0 14px;                /* margen interno para el logo y botón */
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  /* logo sin recortes ni margen negativo */
   .logo{
     margin-left: 0;
     height: var(--header-h);
     overflow: visible;
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
+    flex: 0 0 auto;
   }
   .logo img{
-    height: 48px;                   /* 44–56px a gusto */
+    height: 48px;                   /* subí a 52–56 si querés */
     width: auto;
     object-fit: contain;
-    object-position: left center;   /* o 'center' si querés centrado */
+    object-position: left center;
     transform: none;
+    display: block;
   }
 
-  /* Ajusta el overlay del menú al header real */
-  .mobile-menu{ top: var(--header-h); }
+  /* ocultar links de escritorio y mostrar hamburguesa */
+  .nav-links{ display: none !important; }
+  .menu-toggle{ display: block; font-size: 24px; }
+
+  /* menú móvil ocupa toda la pantalla bajo el header */
+  .mobile-menu{
+    position: fixed;
+    top: var(--header-h);
+    left: 0; right: 0; bottom: 0;
+    display: none;
+    flex-direction: column;
+    background: rgba(0,0,0,.96);
+    padding: 18px;
+    border-top: 1px solid var(--tint-20);
+    z-index: 2500;
+  }
+  .mobile-menu.active{ display: flex; }
+
+  .mobile-menu a{
+    color: var(--ink);
+    text-decoration: none;
+    padding: 14px 6px;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .mobile-menu a:active, .mobile-menu a:hover{ color: var(--accent); }
 }
 
 /* ===== Hero ===== */
