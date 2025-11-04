@@ -58,7 +58,6 @@ nav {
 }
 
 
-
 .logo {
   display: flex;
   align-items: center;
@@ -111,35 +110,61 @@ nav {
     font-size: 24px;
     cursor: pointer;
 }
+/* Header y nav en orden para móvil */
+/* header{ position: sticky; top: 0; z-index: 2000; background: var(--bg); }
+/* header .container{ position: relative; }
 
-.mobile-menu {
-    display: none;
-    flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.95);
-    padding: 20px;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    border-top: 1px solid var(--tint-20);
+/* Por defecto: menú de escritorio visible, hamburguesa oculta */
+.nav-links{ display: flex; gap: 20px; }
+.menu-toggle{ display: none; background: none; border: 0; color: var(--ink); font-size: 22px; }
+
+/* MENÚ MÓVIL */
+.mobile-menu{
+  display: none;
+  flex-direction: column;
+  position: fixed;             /* que cubra toda la pantalla */
+  top: 64px;                   /* altura del header en mobile */
+  left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.96);
+  padding: 16px 20px 24px;
+  z-index: 2500;
+  border-top: 1px solid var(--tint-20);
 }
+.mobile-menu.active{ display: flex; }
 
-.mobile-menu.active {
+.mobile-menu a{
+  color: var(--ink);
+  text-decoration: none;
+  padding: 14px 4px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.mobile-menu a:active,
+.mobile-menu a:hover{ color: var(--accent); }
+
+/* Vista móvil */
+@media (max-width: 768px){
+  :root{ --header-h: 64px; }        /* header un poco más alto en móvil */
+
+  /* Anula el recorte y el margen negativo del desktop */
+  .logo{
+    margin-left: 0;
+    height: var(--header-h);
+    overflow: visible;
     display: flex;
-}
+    align-items: center;
+  }
+  .logo img{
+    height: 48px;                   /* 44–56px a gusto */
+    width: auto;
+    object-fit: contain;
+    object-position: left center;   /* o 'center' si querés centrado */
+    transform: none;
+  }
 
-.mobile-menu a {
-    color: var(--ink);
-    text-decoration: none;
-    padding: 10px 0;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.3s ease;
-}
-
-.mobile-menu a:hover {
-    color: var(--accent);
+  /* Ajusta el overlay del menú al header real */
+  .mobile-menu{ top: var(--header-h); }
 }
 
 /* ===== Hero ===== */
@@ -503,6 +528,34 @@ section {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+/* ===== Sponsors: ajustes móviles ===== */
+@media (max-width: 768px){
+  .sponsors .container{
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .sponsors-grid{
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);  /* 2 por fila */
+    gap: 24px;
+    justify-items: center;
+    align-items: center;
+  }
+  .sponsor-box{ min-height: 90px; }
+  .sponsor-logo{
+    max-height: 80px;     /* baja altura en móvil */
+    max-width: 200px;
+  }
+  /* Evita “desbalanceo” si tenés un boost por transform en desktop */
+  .sponsor-logo.big-fa{ transform: none; }
+}
+@media (max-width: 420px){
+  .sponsor-logo{ max-height: 70px; max-width: 180px; }
+}
+
+
 /* ===== Contacto ===== */
 .contact-form {
     max-width: 600px;

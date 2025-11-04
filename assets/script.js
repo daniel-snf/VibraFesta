@@ -4,11 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // ================================
   const menuToggle = document.getElementById('menuToggle');
   const mobileMenu = document.getElementById('mobileMenu');
-
-  if (menuToggle && mobileMenu) {
+  
+  if (menuToggle && mobileMenu){
     menuToggle.addEventListener('click', () => {
       mobileMenu.classList.toggle('active');
     });
+    // cerrar al clickear cualquier link
+    mobileMenu.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => mobileMenu.classList.remove('active'))
+    );
   }
 
   // ================================
