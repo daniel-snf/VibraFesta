@@ -434,51 +434,100 @@ section {
     margin-bottom: 40px;
 }
 
-/* ===== Sponsors ===== */
+
+/* ===== Sponsors (look tipo “brand wall”) ===== */
 .sponsors {
-    background: linear-gradient(to bottom, var(--bg), var(--tint-10));
+  background: linear-gradient(to bottom, var(--bg), var(--bg));
+  padding-top: 56px;
+  padding-bottom: 72px;
 }
 
 .sponsors-title {
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 32px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--tint) 70%, var(--muted));
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 36px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--tint);
 }
 
-.sponsors-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 32px;
+/* Grid de logos: sin cajas, centrados */
+.sponsors-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 240px); /* 3 columnas */
+  justify-content: center;                 /* centra todo el grid */
+  align-items: center;
+  column-gap: 48px;
+  row-gap: 52px;
 }
 
-.sponsor-box {
-    border: 1px solid var(--tint-20);
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: border-color 0.3s ease;
+/* Cada celda sin borde/fondo */
+.sponsor-box{
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
 }
 
-.sponsor-box:hover {
-    border-color: var(--tint-30);
+/* Logos: tamaños consistentes + escala por variable */
+.sponsor-logo{
+  /* usa 112px por defecto si no se define */
+  max-height: var(--logo-h, 112px);
+  max-width: 360px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  opacity: .92;
+  transition: transform .18s ease, opacity .18s ease;
 }
 
-.sponsor-name {
-    color: var(--tint);
-    font-weight: 700;
-    letter-spacing: 1px;
+/* boost SOLO para el primero (ajustá el factor a gusto) */
+.sponsor-logo.big-fa{
+  transform: translateY(-2px) scale(1.95);
+  transform-origin: center center;
 }
 
+/* Hover: multiplica la escala actual sin cambiar posición */
+.sponsor-box:hover .sponsor-logo{
+
+  transform: translateY(-2px) scale(1.03);
+  opacity: 1;
+}
+
+/* Centrar el contenido del bloque sponsors */
+.sponsors .container{
+  max-width: 1200px;
+  margin: 0 auto;
+}
 /* ===== Contacto ===== */
 .contact-form {
     max-width: 600px;
     margin: 0 auto;
 }
+/* Placeholder (MARCA E / F) */
+.sponsor-box.placeholder{
+  width: 240px;
+  height: 112px;
+  border: 1px dashed rgba(255,255,255,.25);
+  border-radius: 10px;
+  color: rgba(255,255,255,.6);
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
 
+/* Responsive */
+@media (max-width: 900px){
+  .sponsors-grid{ grid-template-columns: repeat(2, 1fr); }
+  .sponsor-box.placeholder{ width: 100%; }
+}
+@media (max-width: 520px){
+  .sponsors-grid{ grid-template-columns: 1fr; }
+}
 .form-input {
     width: 100%;
     background-color: rgba(0,0,0,0.3);
@@ -592,6 +641,17 @@ footer {
     .hero-title { font-size: 32px; }
     .hero-subtitle { font-size: 20px; }
     .section-title { font-size: 28px; }
+
+      /* Menú móvil desplegable fijo bajo el header */
+    .mobile-menu{
+        position: fixed;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 1500;
+        border-top: 1px solid var(--tint-20);
+    }
 }
 
 /* Estilos del Modal de Postulación */
