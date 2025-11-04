@@ -114,6 +114,10 @@
     </section>
 
     <script>
+    if (window.location.pathname === '/gallery.html') {
+      window.location.replace('/galeria');
+    }
+      
     (async () => {
       const params = new URLSearchParams(location.search);
       const qRaw   = params.get('event');                         // ?event=...
