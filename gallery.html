@@ -8,9 +8,14 @@
   <meta name="author" content="Kaimaind — desarrollo en colaboración con Vibra Festa">
   <meta name="copyright" content="© 2025 Vibra Festa & Kaimaind">
 
+  <!-- Anti-cache para el documento HTML (opcional pero útil) -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="assets/styles.css">
+   <link rel="stylesheet" href="assets/styles.css?v=1">
 
   <style>
     main{ padding-top:120px }
@@ -119,25 +124,29 @@
     </section>
 
     <script>
-    (async () => {
-      const params = new URLSearchParams(location.search);
-      const qRaw   = params.get('event');                         // ?event=...
-      const q      = qRaw ? decodeURIComponent(qRaw) : null;
+  // Versión para cache-busting (podés fijarla manualmente ej. 'v=2025-11-05')
+  const CACHE_BUST = 'v=' + Date.now();
 
-      const hero  = document.querySelector('.gallery-hero');
-      const crumb = document.querySelector('.breadcrumbs');
-      const grid  = document.getElementById('eventsGrid');
-      const section = document.getElementById('eventsSection');
+  (async () => {
+    const params = new URLSearchParams(location.search);
+    const qRaw   = params.get('event');
+    const q      = qRaw ? decodeURIComponent(qRaw) : null;
 
-      const res = await fetch('assets/gallery/eventos.json', { cache:'no-cache' });
-      const eventos = await res.json();
+    const hero    = document.querySelector('.gallery-hero');
+    const crumb   = document.querySelector('.breadcrumbs');
+    const grid    = document.getElementById('eventsGrid');
+    const section = document.getElementById('eventsSection');
+
+    // 🚫 cache del JSON
+    const res = await fetch('assets/gallery/eventos.json?' + CACHE_BUST, { cache:'no-store' });
+    const eventos = await res.json();
 
       function setHero(title, subtitle, cover){
         document.querySelector('.gallery-hero h1').textContent = title;
         document.querySelector('.gallery-hero p').textContent  = subtitle || '';
         if (cover){
           hero.style.backgroundImage =
-            `linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.60)), url('${cover}')`;
+            `linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.60)), url('${cover}?${CACHE_BUST}')`;
           hero.style.backgroundSize = 'cover';
           hero.style.backgroundPosition = 'center';
         }
@@ -162,7 +171,7 @@
       async function tryFetchJson(urls){
         for (const url of urls){
           try{
-            const r = await fetch(url, { cache:'no-cache' });
+            const r = await fetch(url, { cache:'no-store' });
             if (r.ok) return { ok:true, url, json: await r.json() };
           }catch(_){}
         }
@@ -176,7 +185,7 @@
         eventos.sort((a,b)=> new Date(b.date) - new Date(a.date));
         grid.innerHTML = eventos.map(ev => `
           <article class="card" data-href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
-            <img src="${ev.cover}" alt="${ev.title} — portada" loading="lazy" decoding="async">
+            <img src="${ev.cover}?${CACHE_BUST}" alt="${ev.title} — portada" loading="lazy" decoding="async">
             <div class="body"><h3>${ev.title}</h3><p>Fotos de la edición ${ev.title}.</p></div>
             <div class="actions">
               <a class="btn-link" href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
@@ -220,7 +229,7 @@
 
         // probamos varias rutas posibles para photos.json
         const tries = folderCandidates(ev).map(f =>
-          `assets/gallery/${encodeURIComponent(f)}/fotos/photos.json`
+          `assets/gallery/${encodeURIComponent(f)}/fotos/photos.json?${CACHE_BUST}`
         );
         const found = await tryFetchJson(tries);
 
@@ -239,7 +248,7 @@
 
         photosDiv.innerHTML = imgs.map(name => `
           <figure class="photo">
-            <img src="${base}${encodeURIComponent(name)}" alt="${ev.title} — ${name}" loading="lazy" decoding="async">
+            <img src="${base}${encodeURIComponent(name)}?${CACHE_BUST}" alt="${ev.title} — ${name}" loading="lazy" decoding="async">
           </figure>
         `).join('');
       }
@@ -261,6 +270,6 @@
     </div>
   </footer>
 
-  <script src="assets/script.js"></script>
+  <script src="assets/script.js?v=1"></script>
 </body>
 </html>
