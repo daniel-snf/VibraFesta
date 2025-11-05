@@ -6,11 +6,11 @@
     "cover": "assets/gallery/OCTUBRE 2025/cover.jpg",
     "folder": "assets/gallery/OCTUBRE 2025"
   },
-    {
+  {
     "slug": "septiembre-2025",
     "title": "Septiembre 2025",
     "date": "2025-09-16",
-    "cover": "assets/gallery/SEPTIEMBRE 2025/cover.JPG",
+    "cover": "assets/gallery/SEPTIEMBRE 2025/fotos/IMG_2399.JPG",
     "folder": "assets/gallery/SEPTIEMBRE 2025"
   },
   {
@@ -34,11 +34,11 @@
     "cover": "assets/gallery/FEBRERO 2024/cover.jpg",
     "folder": "assets/gallery/FEBRERO 2024"
   },
-    {
+  {
     "slug": "diciembre-2024",
     "title": "Diciembre 2024",
     "date": "2024-12-01",
-    "cover": "assets/gallery/DICIEMBRE 2024/cover.JPG",
+    "cover": "assets/gallery/DICIEMBRE 2024/cover.jpg",
     "folder": "assets/gallery/DICIEMBRE 2024"
   },
   {
