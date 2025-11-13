@@ -289,67 +289,100 @@ section{ padding:80px 0; }
 /* =========================================================
    SPONSORS (brand wall)
    ========================================================= */
+
 .sponsors{
   background:linear-gradient(to bottom, var(--bg), var(--bg));
-  padding-top:56px; padding-bottom:72px;
+  padding-top:56px; 
+  padding-bottom:72px;
 }
 .sponsors-title{
-  font-size:26px; text-align:center; margin-bottom:36px;
-  letter-spacing:2px; text-transform:uppercase; color:var(--tint);
+  font-size:26px; 
+  text-align:center; 
+  margin-bottom:36px;
+  letter-spacing:2px; 
+  text-transform:uppercase; 
+  color:var(--tint);
 }
-/* Grid base: 3 columnas fijas centradas */
+
 .sponsors-grid{
-  display:grid;
-  grid-template-columns:repeat(3, 240px);
+  display:flex;
+  flex-wrap:wrap;
   justify-content:center;
-  align-items:center;
-  column-gap:48px; row-gap:52px;
+  column-gap:38px;   /* espacio horizontal entre logos */
+  row-gap:90px;      /* espacio vertical entre filas (ajustá 90 a gusto) */
 }
+
 .sponsor-box{
-  border:0; background:transparent; padding:0;
-  display:flex; align-items:center; justify-content:center;
+  flex:0 1 50%;          /* 2 columnas */
+  border:0; 
+  background:transparent; 
+  padding:0;
+  display:flex; 
+  align-items:center; 
+  justify-content:center;
   overflow:visible;
 }
+
 .sponsor-logo{
   max-height:var(--logo-h, 112px);
-  max-width:360px; width:auto; height:auto;
-  object-fit:contain; display:block; opacity:.92;
+  max-width:360px; 
+  width:auto; 
+  height:auto;
+  object-fit:contain; 
+  display:block; 
+  opacity:.92;
   transition:transform .18s ease, opacity .18s ease;
 }
-/* Boost sólo para la primera marca que querías resaltar (desktop) */
+
+/* Boost sólo para la primera marca destacada (desktop) */
 .sponsor-logo.big-fa{
   transform:translateY(-2px) scale(1.95);
   transform-origin:center center;
 }
+
 .sponsor-box:hover .sponsor-logo{
   transform:translateY(-2px) scale(1.03);
   opacity:1;
 }
-.sponsors .container{ max-width:1200px; margin:0 auto; }
 
-/* Placeholders (MARCA E / F) */
+.sponsors .container{ 
+  max-width:1200px; 
+  margin:0 auto; 
+}
+
+/* Placeholders (si los volvés a usar) */
 .sponsor-box.placeholder{
-  width:240px; height:112px;
-  border:1px dashed rgba(255,255,255,.25); border-radius:10px;
-  color:rgba(255,255,255,.6); font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+  border:1px dashed rgba(255,255,255,.25); 
+  border-radius:10px;
+  color:rgba(255,255,255,.6); 
+  font-weight:700; 
+  letter-spacing:.5px; 
+  text-transform:uppercase;
 }
 
-/* Sponsors responsive */
-@media (max-width:900px){
-  .sponsors-grid{ grid-template-columns:repeat(2, 1fr); }
-  .sponsor-box.placeholder{ width:100%; }
-}
-@media (max-width:768px){
-  .sponsors .container{ max-width:100%; padding-inline:16px; }
-  .sponsors-grid{
-    grid-template-columns:repeat(2, 1fr);
-    gap:24px; justify-items:center; align-items:center;
+/* Escritorio: 4 por fila (8 = 2 filas) */
+@media (min-width:1024px){
+  .sponsor-box{
+    flex:0 1 25%;        /* 4 columnas */
   }
-  .sponsor-box{ min-height:90px; }
+}
+
+/* Ajustes tamaños en móvil */
+@media (max-width:768px){
+  .sponsors .container{ 
+    max-width:100%; 
+    padding-inline:16px; 
+  }
+  .sponsor-box{ 
+    min-height:90px; 
+  }
   .sponsor-logo{ 
     max-height: var(--logo-h-mobile, 80px);
-    max-width: 200px; }
-  .sponsor-logo.big-fa{ transform:none; }   /* evita desbalance en móvil */
+    max-width: 200px; 
+  }
+  .sponsor-logo.big-fa{ 
+    transform:none;      /* evita desbalance en móvil */
+  }
 }
 @media (max-width: 420px){
   .sponsor-logo{
@@ -357,6 +390,7 @@ section{ padding:80px 0; }
     max-width: 180px;
   }
 }
+
 
 /* =========================================================
    CONTACTO
