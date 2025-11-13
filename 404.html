@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <title>Redirecting...</title>
-    <script>
-        // Redirecciones personalizadas
-        const routes = {
-            '/': '/index.html',
-            '/home': '/index.html#home',
-            '/galeria': '/gallery.html',
-            '/eventos': '/gallery.html',
-            '/contacto': '/index.html#contact',
-            '/expositores': '/index.html#vendors',
-            '/nosotros': '/index.html#about'
-        };
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    // Redirecciones personalizadas
+    const routes = {
+      '/': '/index.html',
+      '/home': '/index.html',
+      '/galeria': '/galeria',          // mantiene la URL /galeria
+      '/eventos': '/galeria',          // alias a galeria
+      '/contacto': '/index.html#contact',
+      '/expositores': '/index.html#vendors',
+      '/nosotros': '/index.html#about'
+    };
 
-        const currentPath = window.location.pathname;
-        
-        if (routes[currentPath]) {
-            window.location.href = routes[currentPath];
-        } else {
-            // Para cualquier otra ruta, redirige al home
-            window.location.href = '/index.html';
-        }
-    </script>
+    const currentPath = window.location.pathname;
+
+    // Si alguien entra a /gallery.html, lo mandamos a /galeria
+    if (currentPath === '/gallery.html') {
+      window.location.replace('/galeria');
+    }
+    // Si la ruta está en el mapa, redirigimos donde corresponde
+    else if (routes[currentPath]) {
+      window.location.replace(routes[currentPath]);
+    }
+    // Para cualquier otra cosa, al home
+    else {
+      window.location.replace('/index.html');
+    }
+  </script>
 </head>
 <body>
-    <p>Redirecting...</p>
+  <p>Redirecting...</p>
 </body>
 </html>
