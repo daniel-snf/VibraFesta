@@ -538,12 +538,51 @@ main{ padding-top:120px; }
 @media (max-width:560px){ .grid > .card{ display:block; } .grid > .card:nth-child(n+4){ display:none; } }*/
 
 /* Fotos dentro de página de evento */
-.photos{ display:grid; gap:16px; grid-template-columns:repeat(12,1fr); position:relative; z-index:1; }
-.photo{ grid-column:span 3; border:1px solid var(--tint-20); border-radius:14px; overflow:hidden; }
-.photo img{ width:100%; aspect-ratio:5/7; object-fit:cover; display:block; }
-@media (max-width:1200px){ .photo{ grid-column:span 4; } }
-@media (max-width:900px){ .photo{ grid-column:span 6; } }
-@media (max-width:560px){ .photo{ grid-column:span 12; } }
+.photos{
+  display:grid;
+  gap:16px;
+  grid-template-columns:repeat(12,1fr);
+  position:relative;
+  z-index:1;
+}
+
+.photo{
+  grid-column:span 3;
+  border:1px solid var(--tint-20);
+  border-radius:14px;
+  overflow:hidden;
+}
+
+.photo img{
+  width:100%;
+  aspect-ratio:5/7;
+  object-fit:cover;
+  display:block;
+}
+
+/* Escritorio / tablet: se mantiene igual que ahora */
+@media (max-width:1200px){
+  .photo{ grid-column:span 4; }
+}
+
+@media (max-width:900px){
+  .photo{ grid-column:span 6; }
+}
+
+/* 📱 Móvil: miniaturas en filas de 3 */
+@media (max-width:560px){
+  .photos{
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:8px;              /* un poco menos de espacio entre fotos */
+  }
+  .photo{
+    grid-column:auto;     /* que cada foto ocupe 1 columna de las 3 */
+  }
+  .photo img{
+    aspect-ratio:3/4;     /* un poco más “verticalitas”, opcional */
+  }
+}
+
 
 /* =========================================================
    LIGHTBOX
