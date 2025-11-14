@@ -15,7 +15,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <link rel="stylesheet" href="assets/styles.css?v=1">
+  <link rel="stylesheet" href="assets/styles.css?v=1">
 
   <style>
     main{ padding-top:120px }
@@ -78,34 +78,34 @@
   <header>
     <div class="container">
       <nav>
-      <!-- Botón hamburguesa IZQ -->
-      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+        <!-- Botón hamburguesa IZQ -->
+        <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
 
-      <!-- Logo CENTRADO -->
-      <a href="/" class="logo" aria-label="VIBRA FESTA - Inicio">
-        <img src="img/logo.png" alt="VIBRA FESTA">
-      </a>
-
-      <!-- Espaciador a la derecha (equilibrio visual) -->
-      <span class="nav-spacer" aria-hidden="true"></span>
-    </nav>
-      <!-- Panel del menú móvil (reposado bajo el header) -->
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="/">Inicio</a>
-      <a href="/#vendors">Ser expositor</a>
-      <a href="/#events">Eventos</a>
-      <a href="/#about">Sobre nosotros</a>
-      <a href="/#contact">Contacto</a>
-      <a href="/galeria">Galería</a>
-
-      <div class="menu-footer">
-        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link">
-          <i class="fab fa-instagram" aria-hidden="true"></i>
-          <span>Instagram</span>
+        <!-- Logo CENTRADO -->
+        <a href="/" class="logo" aria-label="VIBRA FESTA - Inicio">
+          <img src="img/logo.png" alt="VIBRA FESTA">
         </a>
+
+        <!-- Espaciador a la derecha (equilibrio visual) -->
+        <span class="nav-spacer" aria-hidden="true"></span>
+      </nav>
+      <!-- Panel del menú móvil (reposado bajo el header) -->
+      <div class="mobile-menu" id="mobileMenu">
+        <a href="/">Inicio</a>
+        <a href="/#vendors">Ser expositor</a>
+        <a href="/#events">Eventos</a>
+        <a href="/#about">Sobre nosotros</a>
+        <a href="/#contact">Contacto</a>
+        <a href="/galeria">Galería</a>
+
+        <div class="menu-footer">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+            <span>Instagram</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
   </header>
 
   <section class="gallery-hero">
@@ -125,149 +125,162 @@
     </section>
 
     <script>
-  // Versión para cache-busting (podés fijarla manualmente ej. 'v=2025-11-05')
-  const CACHE_BUST = 'v=' + Date.now();
+      // Versión fija para cache (CAMBIO)
+      const CACHE_BUST = 'v=2025-11-15';
 
-  (async () => {
-    const params = new URLSearchParams(location.search);
-    const qRaw   = params.get('event');
-    const q      = qRaw ? decodeURIComponent(qRaw) : null;
+      (async () => {
+        const params = new URLSearchParams(location.search);
+        const qRaw   = params.get('event');
+        const q      = qRaw ? decodeURIComponent(qRaw) : null;
 
-    const hero    = document.querySelector('.gallery-hero');
-    const crumb   = document.querySelector('.breadcrumbs');
-    const grid    = document.getElementById('eventsGrid');
-    const section = document.getElementById('eventsSection');
+        const hero    = document.querySelector('.gallery-hero');
+        const crumb   = document.querySelector('.breadcrumbs');
+        const grid    = document.getElementById('eventsGrid');
+        const section = document.getElementById('eventsSection');
 
-    // 🚫 cache del JSON
-    const res = await fetch('assets/gallery/eventos.json?' + CACHE_BUST, { cache:'no-store' });
-    const eventos = await res.json();
+        // ✅ cache-busting SOLO para el JSON de eventos (archivos livianos)
+        const res = await fetch('assets/gallery/eventos.json?' + CACHE_BUST, {
+          cache: 'no-store'
+        });
+        const eventos = await res.json();
 
-      function setHero(title, subtitle, cover){
-        document.querySelector('.gallery-hero h1').textContent = title;
-        document.querySelector('.gallery-hero p').textContent  = subtitle || '';
-        if (cover){
-          hero.style.backgroundImage =
-            `linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.60)), url('${cover}?${CACHE_BUST}')`;
-          hero.style.backgroundSize = 'cover';
-          hero.style.backgroundPosition = 'center';
+        function setHero(title, subtitle, cover){
+          document.querySelector('.gallery-hero h1').textContent = title;
+          document.querySelector('.gallery-hero p').textContent  = subtitle || '';
+          if (cover){
+            // ✅ sin cache-busting en la imagen de fondo
+            hero.style.backgroundImage =
+              `linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.60)), url('${cover}')`;
+            hero.style.backgroundSize = 'cover';
+            hero.style.backgroundPosition = 'center';
+          }
         }
-      }
 
-      function folderCandidates(ev){
-        const slug  = (ev.slug  || '').trim();
-        const title = (ev.title || '').trim();
-        const list = [
-          ev.folder,                       // si lo agregás al JSON
-          slug,
-          title,
-          title.toUpperCase(),
-          title.toLowerCase(),
-          title.replace(/\s+/g,'-').toLowerCase(), // "Agosto 2025" -> "agosto-2025"
-          (slug||title).replace(/-/g,' '),         // "agosto 2025"
-        ].filter(Boolean);
-        // quitamos duplicados preservando orden
-        return [...new Set(list)];
-      }
-
-      async function tryFetchJson(urls){
-        for (const url of urls){
-          try{
-            const r = await fetch(url, { cache:'no-store' });
-            if (r.ok) return { ok:true, url, json: await r.json() };
-          }catch(_){}
+        function folderCandidates(ev){
+          const slug  = (ev.slug  || '').trim();
+          const title = (ev.title || '').trim();
+          const list = [
+            ev.folder,                       // si lo agregás al JSON
+            slug,
+            title,
+            title.toUpperCase(),
+            title.toLowerCase(),
+            title.replace(/\s+/g,'-').toLowerCase(), // "Agosto 2025" -> "agosto-2025"
+            (slug||title).replace(/-/g,' '),         // "agosto 2025"
+          ].filter(Boolean);
+          // quitamos duplicados preservando orden
+          return [...new Set(list)];
         }
-        return { ok:false };
-      }
 
-      async function renderList(){
-        crumb.innerHTML = `<a href="/">Inicio</a> <span>›</span> Eventos`;
-        setHero('Eventos','Explorá algunos de nuestros eventos recientes. Cada tarjeta te lleva al detalle con fotos y highlights.');
+        async function tryFetchJson(urls){
+          for (const url of urls){
+            try{
+              // ✅ agregamos CACHE_BUST aquí para JSON de fotos
+              const r = await fetch(url + '&' + CACHE_BUST, { cache:'no-store' });
+              if (r.ok) return { ok:true, url, json: await r.json() };
+            }catch(_){}
+          }
+          return { ok:false };
+        }
 
-        eventos.sort((a,b)=> new Date(b.date) - new Date(a.date));
-        grid.innerHTML = eventos.map(ev => `
-          <article class="card" data-href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
-            <img src="${ev.cover}?${CACHE_BUST}" alt="${ev.title} — portada" loading="lazy" decoding="async">
-            <div class="body"><h3>${ev.title}</h3><p>Fotos de la edición ${ev.title}.</p></div>
-            <div class="actions">
-              <a class="btn-link" href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
-                Ver evento <i class="fa fa-arrow-right" aria-hidden="true"></i>
-              </a>
-            </div>
-          </article>
-        `).join('');
+        async function renderList(){
+          crumb.innerHTML = `<a href="/">Inicio</a> <span>›</span> Eventos`;
+          setHero(
+            'Eventos',
+            'Explorá algunos de nuestros eventos recientes. Cada tarjeta te lleva al detalle con fotos y highlights.'
+          );
 
-        // hace toda la tarjeta clickeable
-        grid.querySelectorAll('.card').forEach(card=>{
-          card.addEventListener('click', e=>{
-            if (!e.target.closest('a')) location.href = card.dataset.href;
+          eventos.sort((a,b)=> new Date(b.date) - new Date(a.date));
+          grid.innerHTML = eventos.map(ev => `
+            <article class="card" data-href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
+              <!-- ✅ sin CACHE_BUST en la imagen -->
+              <img src="${ev.cover}" alt="${ev.title} — portada" loading="lazy" decoding="async">
+              <div class="body">
+                <h3>${ev.title}</h3>
+                <p>Fotos de la edición ${ev.title}.</p>
+              </div>
+              <div class="actions">
+                <a class="btn-link" href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
+                  Ver evento <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
+            </article>
+          `).join('');
+
+          // hace toda la tarjeta clickeable
+          grid.querySelectorAll('.card').forEach(card=>{
+            card.addEventListener('click', e=>{
+              if (!e.target.closest('a')) location.href = card.dataset.href;
+            });
           });
-        });
-      }
-
-      async function renderEvent(query){
-        const qLow  = query.toLowerCase();
-        const qNorm = qLow.replace(/-/g,' ');
-
-        const ev = eventos.find(e=>{
-          const slug  = (e.slug  || '').toLowerCase();
-          const title = (e.title || '').toLowerCase();
-          return slug===qLow || slug===qNorm || title===qLow || title===qNorm;
-        });
-
-        if(!ev){
-          setHero('Evento no encontrado', `No encontramos "${query}".`);
-          crumb.innerHTML = `<a href="/">Inicio</a> <span>›</span> <a href="/galeria">Eventos</a> <span>›</span> ${query}`;
-          grid.innerHTML = '';
-          return;
         }
 
-        crumb.innerHTML = `<a href="/">Inicio</a> <span>›</span> <a href="/galeria">Eventos</a> <span>›</span> ${ev.title}`;
-        setHero(ev.title, ev.subtitle || `Fotos de la edición ${ev.title}.`, ev.cover);
+        async function renderEvent(query){
+          const qLow  = query.toLowerCase();
+          const qNorm = qLow.replace(/-/g,' ');
 
-        // reemplazamos la grilla por un contenedor de fotos
-        section.innerHTML = '<div class="photos" id="photos"></div>';
-        const photosDiv = document.getElementById('photos');
+          const ev = eventos.find(e=>{
+            const slug  = (e.slug  || '').toLowerCase();
+            const title = (e.title || '').toLowerCase();
+            return slug===qLow || slug===qNorm || title===qLow || title===qNorm;
+          });
 
-        // probamos varias rutas posibles para photos.json
-        const tries = folderCandidates(ev).map(f =>
-          `assets/gallery/${encodeURIComponent(f)}/fotos/photos.json?${CACHE_BUST}`
-        );
-        const found = await tryFetchJson(tries);
+          if(!ev){
+            setHero('Evento no encontrado', `No encontramos "${query}".`);
+            crumb.innerHTML = `<a href="/">Inicio</a> <span>›</span> <a href="/galeria">Eventos</a> <span>›</span> ${query}`;
+            grid.innerHTML = '';
+            return;
+          }
 
-        if (!found.ok){
-          photosDiv.innerHTML = `<p>No hay fotos disponibles para esta edición.</p>`;
-          return;
+          crumb.innerHTML = `<a href="/">Inicio</a> <span>›</span> <a href="/galeria">Eventos</a> <span>›</span> ${ev.title}`;
+          setHero(ev.title, ev.subtitle || `Fotos de la edición ${ev.title}.`, ev.cover);
+
+          // reemplazamos la grilla por un contenedor de fotos
+          section.innerHTML = '<div class="photos" id="photos"><p style="grid-column:1/-1; color:var(--muted);">Cargando fotos...</p></div>';
+          const photosDiv = document.getElementById('photos');
+
+          // probamos varias rutas posibles para photos.json (sin ?CACHE_BUST aquí, se agrega en tryFetchJson)
+          const tries = folderCandidates(ev).map(f =>
+            `assets/gallery/${encodeURIComponent(f)}/fotos/photos.json?source=gallery`
+          );
+          const found = await tryFetchJson(tries);
+
+          if (!found.ok){
+            photosDiv.innerHTML = `<p>No hay fotos disponibles para esta edición.</p>`;
+            return;
+          }
+
+          // carpeta que funcionó (sin encode)
+          const folderUsed = decodeURIComponent(found.url)
+                              .split('assets/gallery/')[1]
+                              .split('/fotos/')[0];
+
+          const base = `assets/gallery/${encodeURIComponent(folderUsed)}/fotos/`;
+          const imgs = (found.json.images || []);
+
+          photosDiv.innerHTML = imgs.map(name => `
+            <figure class="photo">
+              <!-- ✅ sin CACHE_BUST en las fotos -->
+              <img src="${base}${encodeURIComponent(name)}" alt="${ev.title} — ${name}" loading="lazy" decoding="async">
+            </figure>
+          `).join('');
         }
 
-        // carpeta que funcionó (sin encode)
-        const folderUsed = decodeURIComponent(found.url)
-                            .split('assets/gallery/')[1]
-                            .split('/fotos/')[0];
-
-        const base = `assets/gallery/${encodeURIComponent(folderUsed)}/fotos/`;
-        const imgs = (found.json.images || []);
-
-        photosDiv.innerHTML = imgs.map(name => `
-          <figure class="photo">
-            <img src="${base}${encodeURIComponent(name)}?${CACHE_BUST}" alt="${ev.title} — ${name}" loading="lazy" decoding="async">
-          </figure>
-        `).join('');
-      }
-
-      if (!q) await renderList();
-      else    await renderEvent(q);
-    })();
+        if (!q) await renderList();
+        else    await renderEvent(q);
+      })();
     </script>
   </main>
 
   <footer>
     <div class="container">
       <div class="copyright">
-          <p>&copy; 2025 Vibra Festa. Todos los derechos reservados.</p>
-          <p class="credit">
+        <p>&copy; 2025 Vibra Festa. Todos los derechos reservados.</p>
+        <p class="credit">
           Este sitio web fue desarrollado por 
           <a href="https://www.linkedin.com/company/kaimind/" target="_blank" rel="noopener">Kaimaind</a>
-          </p>
+        </p>
+      </div>
     </div>
   </footer>
 
