@@ -289,6 +289,25 @@ section{ padding:80px 0; }
 .author-business{ font-size:14px; color:var(--accent-2); }
 
 /* =========================================================
+   Mensajes
+   ========================================================= */
+.Mensajes{ background:linear-gradient(to bottom, var(--bg), var(--tint-10)); }
+.Mensajes-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:32px; max-height: 500px; overflow-y: auto;
+}
+.Mensaje-card{
+  background:rgba(0,0,0,.3); border:1px solid var(--tint-20); padding:32px;
+  transition:border-color .3s ease;
+}
+.Mensaje-card:hover{ border-color:var(--tint-30); }
+.Mensaje-quote{
+  font-size:18px; color:var(--muted); font-style:italic; line-height:1.6; margin-bottom:24px;
+}
+.Mensaje-author{ border-top:1px solid var(--tint-20); padding-top:16px; }
+.author-name{ font-weight:700; letter-spacing:1px; margin-bottom:4px; }
+.author-business{ font-size:14px; color:var(--accent-2); }
+
+/* =========================================================
    VENDORS
    ========================================================= */
 .vendors-content{ max-width:768px; margin:0 auto; text-align:center; }
