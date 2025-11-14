@@ -359,6 +359,44 @@ section{ padding:80px 0; }
 .author-name{ font-weight:700; letter-spacing:1px; margin-bottom:4px; }
 .author-business{ font-size:14px; color:var(--accent-2); }
 
+/* 📱 Carrusel horizontal de Felicitaciones en móvil */
+@media (max-width: 768px){
+  .Mensajes-grid{
+    display:flex;                 /* de grid → flex fila */
+    flex-direction:row;
+    overflow-x:auto;              /* deslizar horizontal */
+    overflow-y:visible;           /* ya no scroll vertical */
+    gap:16px;
+    max-height:none;              /* sin límite de alto en móvil */
+    scroll-snap-type:x mandatory; /* que “encaje” tarjeta por tarjeta */
+    padding-bottom:8px;
+  }
+
+  /* Scrollbar horizontal finito en móvil (opcional) */
+  .Mensajes-grid::-webkit-scrollbar{
+    height:6px;                  /* ahora horizontal */
+    width:auto;
+  }
+
+  .Mensajes-grid::-webkit-scrollbar-track{
+    background:#111;
+    border-radius:999px;
+  }
+
+  .Mensajes-grid::-webkit-scrollbar-thumb{
+    background:#444;
+    border-radius:999px;
+  }
+
+  .Mensaje-card{
+    flex:0 0 100%;               /* ocupa todo el ancho visible */
+    scroll-snap-align:center;    /* cada swipe “centra” la tarjeta */
+    min-width:80%;               /* un poco de margen lateral visual */
+    margin-right:8px;
+  }
+}
+
+
 /* =========================================================
    VENDORS
    ========================================================= */
