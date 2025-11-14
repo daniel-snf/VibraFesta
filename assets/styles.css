@@ -20,7 +20,13 @@
 
   /* Tipografía de marca (display) */
   --brand-display: 'TAN Nimbus', 'Open Sans', system-ui, sans-serif;
+
+  /* Radios globales */
+  --radius-card: 18px;
+  --radius-soft: 14px;
+  --radius-pill: 999px;
 }
+
 
 body{
   font-family:'Open Sans',sans-serif;
@@ -201,7 +207,9 @@ nav{
   background:var(--accent); color:#000;
   padding:16px 32px; font-size:14px; letter-spacing:2px; text-transform:uppercase;
   border:1px solid transparent; cursor:pointer; transition:all .3s ease; display:inline-block;
+  border-radius: var(--radius-pill);   /* ✅ redondo estilo pastilla */
 }
+
 .btn:hover{ background:var(--accent-2); color:#fff; transform:scale(1.05); }
 .slider-dots{
   position:absolute; left:50%; bottom:32px; transform:translateX(-50%);
@@ -240,8 +248,11 @@ section{ padding:80px 0; }
   width:100%; max-width:380px; min-height:220px;
   display:flex; flex-direction:column;
   background:linear-gradient(to bottom, rgba(225,223,217,0.12), var(--bg));
-  border:1px solid var(--tint-20); border-radius:0; padding:32px;
+  border:1px solid var(--tint-20);
+  border-radius: var(--radius-card);   /* ✅ curvas tipo galería */
+  padding:32px;
   transition:all .3s ease;
+  overflow: hidden;                    /* por si algo se asoma en las esquinas */
 }
 .event-card:hover{ border-color:var(--tint-30); }
 .event-date{
@@ -260,11 +271,24 @@ section{ padding:80px 0; }
 }
 .event-info i{ margin-right:8px; font-size:14px; }
 .event-btn{
-  width:100%; background:var(--accent); color:#000; padding:12px;
-  text-align:center; text-decoration:none; font-size:12px; letter-spacing:2px; text-transform:uppercase;
-  border:1px solid transparent; display:flex; align-items:center; justify-content:center; gap:0;
+  width:100%;
+  background:var(--accent);
+  color:#000;
+  padding:12px 18px;
+  text-align:center;
+  text-decoration:none;
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border:1px solid transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  border-radius: var(--radius-pill);   /* ✅ más suave */
   transition:all .3s ease;
 }
+
 .event-btn i{ opacity:0; transition:opacity .3s ease; margin-left:8px; }
 .event-btn:hover{ background:var(--accent-2); color:#fff; gap:8px; }
 .event-btn:hover i{ opacity:1; }
@@ -277,9 +301,18 @@ section{ padding:80px 0; }
   display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:32px;
 }
 .testimonial-card{
-  background:rgba(0,0,0,.3); border:1px solid var(--tint-20); padding:32px;
-  transition:border-color .3s ease;
+  background:rgba(0,0,0,.3);
+  border:1px solid var(--tint-20);
+  border-radius: var(--radius-card);   /* ✅ curvas */
+  padding:32px;
+  transition:border-color .3s ease, box-shadow .2s ease;
+  box-shadow:0 10px 26px rgba(0,0,0,.28);
 }
+.testimonial-card:hover{
+  border-color:var(--tint-30);
+  box-shadow:0 12px 30px rgba(2,8,23,.30);
+}
+
 .testimonial-card:hover{ border-color:var(--tint-30); }
 .testimonial-quote{
   font-size:18px; color:var(--muted); font-style:italic; line-height:1.6; margin-bottom:24px;
@@ -308,10 +341,17 @@ section{ padding:80px 0; }
     background: #a1a1a1; 
 }
 .Mensaje-card{
-  background:rgba(0,0,0,.3); border:1px solid var(--tint-20); padding:32px;
-  transition:border-color .3s ease;
+  background:rgba(0,0,0,.3);
+  border:1px solid var(--tint-20);
+  border-radius: var(--radius-card);   /* ✅ mismo estilo */
+  padding:32px;
+  transition:border-color .3s ease, box-shadow .2s ease;
+  box-shadow:0 10px 26px rgba(0,0,0,.28);
 }
-.Mensaje-card:hover{ border-color:var(--tint-30); }
+.Mensaje-card:hover{
+  border-color:var(--tint-30);
+  box-shadow:0 12px 30px rgba(2,8,23,.30);
+}
 .Mensaje-quote{
   font-size:18px; color:var(--muted); font-style:italic; line-height:1.6; margin-bottom:24px;
 }
@@ -397,11 +437,21 @@ section{ padding:80px 0; }
    ========================================================= */
 .contact-form{ max-width:600px; margin:0 auto; }
 .form-input{
-  width:100%; background:rgba(0,0,0,.3); border:1px solid var(--tint-20);
-  padding:16px 24px; color:var(--ink); font-size:16px; margin-bottom:24px;
-  transition:border-color .3s ease;
+  width:100%;
+  background:rgba(0,0,0,.3);
+  border:1px solid var(--tint-20);
+  border-radius: var(--radius-soft);   /* ✅ esquinas suaves */
+  padding:16px 24px;
+  color:var(--ink);
+  font-size:16px;
+  margin-bottom:24px;
+  transition:border-color .3s ease, box-shadow .2s ease;
 }
-.form-input:focus{ outline:none; border-color:var(--accent); }
+.form-input:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 60%, transparent);
+}
 .form-input::placeholder{ color:color-mix(in srgb, var(--tint) 60%, var(--muted)); }
 
 /* =========================================================
@@ -455,10 +505,19 @@ body.modal-open{ overflow:hidden; }
 }
 .modal-overlay.active{ display:flex; opacity:1; }
 .modal-content{
-  background:#111; padding:30px 40px; border:1px solid var(--tint-20); border-radius:8px;
-  width:100%; max-width:600px; position:relative; max-height:90vh; overflow-y:auto;
-  transform:scale(.95); transition:transform .3s ease;
+  background:#111;
+  padding:30px 40px;
+  border:1px solid var(--tint-20);
+  border-radius: var(--radius-card);   /* ✅ más redondo como las cards */
+  width:100%; max-width:600px;
+  position:relative;
+  max-height:90vh;
+  overflow-y:auto;
+  transform:scale(.95);
+  transition:transform .3s ease, box-shadow .2s ease;
+  box-shadow:0 18px 50px rgba(0,0,0,.55);
 }
+
 .modal-overlay.active .modal-content{ transform:scale(1); }
 .modal-close{
   position:absolute; top:10px; right:15px; background:none; border:0; color:var(--muted);
