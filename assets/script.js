@@ -1,3 +1,5 @@
+/* Tu archivo assets/script.js completo y modificado */
+
 document.addEventListener('DOMContentLoaded', function() {
   // ================================
   // Mobile Menu Toggle
@@ -23,10 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const dots = document.querySelectorAll('.dot');
 
   function showSlide(index) {
-    if (!slides.length || !dots.length) return; // Evita errores si no hay slider
+    if (!slides.length || !dots.length) return; 
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
-
     slides[index].classList.add('active');
     dots[index].classList.add('active');
     currentSlide = index;
@@ -39,8 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
         showSlide(slideIndex);
       });
     });
-
-    // Auto slide change
     setInterval(() => {
       currentSlide = (currentSlide + 1) % slides.length;
       showSlide(currentSlide);
@@ -52,22 +51,20 @@ document.addEventListener('DOMContentLoaded', function() {
   // ================================
   document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
-          // Manejar enlaces que empiezan con /#
           let targetId = this.getAttribute('href');
           if (targetId.startsWith('/#')) {
-              targetId = targetId.substring(1); // Remover la barra inicial
+            targetId = targetId.substring(1); 
           }
-          
           if (!targetId || targetId === '#') return;
   
           const targetElement = document.querySelector(targetId);
           if (targetElement) {
-              e.preventDefault();
-              window.scrollTo({
-                  top: targetElement.offsetTop - 80,
-                  behavior: 'smooth'
-              });
-              if (mobileMenu) mobileMenu.classList.remove('active');
+            e.preventDefault();
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+            if (mobileMenu) mobileMenu.classList.remove('active');
           }
       });
   });
@@ -94,17 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Botón principal "Postularme"
   if (openModalBtn) openModalBtn.addEventListener('click', openModal);
   if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
 
   if (applicationModal) {
-    // Cerrar el modal si se hace clic fuera del contenido
     applicationModal.addEventListener('click', (event) => {
       if (event.target === applicationModal) closeModal();
     });
-
-    // Abrir modal desde los botones de tarjetas (".event-btn")
     document.querySelectorAll('.event-btn').forEach(btn => {
       btn.addEventListener('click', openModal);
       btn.setAttribute('role', 'button');
@@ -115,9 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ================================
   // Lightbox de galería (gallery.html)
-  // -> Delegación global para funcionar aunque .photos se cree tras el fetch
   // ================================
-  // Crear lightbox (una sola vez)
+  // ... (Tu código de lightbox está perfecto y no se toca) ...
   (function ensureLightbox() {
     if (document.getElementById('lightbox')) return;
     const wrapper = document.createElement('div');
@@ -138,50 +130,39 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>`;
     document.body.appendChild(wrapper.firstElementChild);
   })();
-
-  // Refs del lightbox
-  const lb      = document.getElementById('lightbox');
-  const lbImg   = document.getElementById('lbImg');
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
   const lbInner = document.getElementById('lightboxInner');
   const btnPrev = document.getElementById('lbPrev');
   const btnNext = document.getElementById('lbNext');
-  const btnClose= document.getElementById('lbClose');
-
+  const btnClose = document.getElementById('lbClose');
   let images = [];
   let idx = 0;
   let touchStartX = null;
-
   function collectImages() {
     images = Array.from(document.querySelectorAll('.photos img'));
   }
-
   function openAt(i) {
     if (!images.length) collectImages();
     if (!images.length) return;
-
     idx = (i + images.length) % images.length;
-    const el  = images[idx];
+    const el = images[idx];
     const src = el.getAttribute('src');
     const alt = el.getAttribute('alt') || '';
-
     lbImg.src = src;
     lbImg.alt = alt;
     lb.classList.add('active');
     lb.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
   }
-
   function closeLb() {
     lb.classList.remove('active');
     lb.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
     lbImg.removeAttribute('src'); // liberar memoria
   }
-
   function prev() { openAt(idx - 1); }
   function next() { openAt(idx + 1); }
-
-  // Delegación global: abrir al click en cualquier .photos img (aunque se agregue luego)
   document.addEventListener('click', (e) => {
     const img = e.target.closest('.photos img');
     if (!img) return;
@@ -190,34 +171,93 @@ document.addEventListener('DOMContentLoaded', function() {
     const i = images.indexOf(img);
     if (i >= 0) openAt(i);
   });
-
-  // Controles del lightbox
   if (btnPrev) btnPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
   if (btnNext) btnNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
   if (btnClose) btnClose.addEventListener('click', (e) => { e.stopPropagation(); closeLb(); });
-
-  // Cerrar clickeando fuera de la imagen
   lb.addEventListener('click', (e) => {
     if (!lbInner.contains(e.target)) closeLb();
   });
-
-  // Teclado: ESC / flechas
   document.addEventListener('keydown', (e) => {
     if (!lb.classList.contains('active')) return;
-    if (e.key === 'Escape')        closeLb();
-    else if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'Escape') closeLb();
+    else if (e.key === 'ArrowLeft') prev();
     else if (e.key === 'ArrowRight') next();
   });
-
-  // Swipe en móvil
   lb.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].clientX;
   }, { passive: true });
-
   lb.addEventListener('touchend', (e) => {
     if (touchStartX === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) > 40) { if (dx > 0) prev(); else next(); }
     touchStartX = null;
   }, { passive: true });
-});
+  
+  
+  // ================================
+  // Cargar Mensajes (Felicitaciones)
+  // ================================
+  // Se llama a la función.
+  cargarMensajes();
+  
+}); // <-- FIN DEL document.addEventListener('DOMContentLoaded')
+
+
+// ======================================================
+// Función para cargar mensajes desde la API
+// (Esta función está fuera de DOMContentLoaded)
+// ======================================================
+async function cargarMensajes() {
+    
+    // 1. Selecciona el contenedor. Solo busca ".Mensajes-grid"
+    const contenedor = document.querySelector('.Mensajes-grid');
+
+    // 2. Si no encuentra ".Mensajes-grid" en la página, 
+    // no hace nada y termina. (Esto es lo que lo hace seguro)
+    if (!contenedor) {
+        return;
+    }
+
+    // 3. Si lo encuentra, procede a cargar...
+    const urlDeLaApi = 'https://script.google.com/macros/s/AKfycbx_DzVqhTd2KndZY6YZ040P06Jf2j9xaFpCWMQw1Ay3CB8K2Na5ySCXNzDLGKiN8Q/exec';
+    
+    contenedor.innerHTML = '<p>Cargando felicitaciones...</p>';
+
+    try {
+        const respuesta = await fetch(urlDeLaApi);
+        if (!respuesta.ok) throw new Error(`Error HTTP: ${respuesta.status}`);
+        
+        const data = await respuesta.json();
+        const mensajes = data.mensajes
+        console.log(mensajes)
+
+        if (mensajes.length === 0) {
+            contenedor.innerHTML = '<p>Aún no hay felicitaciones para mostrar.</p>';
+            return;
+        }
+
+        contenedor.innerHTML = ''; // Limpia el "cargando"
+
+        mensajes.forEach(mensaje => {
+            const tarjeta = document.createElement('div');
+            
+            // 4. Usa la clase ".Mensaje-card" (No toca a .testimonial-card)
+            tarjeta.className = 'Mensaje-card'; 
+
+            tarjeta.innerHTML = `
+                <p class="Mensaje-quote">
+                    "${mensaje[0]}"
+                </p>
+                <div class="Mensaje-author">
+                    <div class="author-name">${mensaje[1]}</div>
+                </div>
+            `;
+            
+            contenedor.appendChild(tarjeta);
+        });
+
+    } catch (error) {
+        console.error('Falló la carga de mensajes:', error);
+        contenedor.innerHTML = '<p>No se pudieron cargar las felicitaciones. Por favor, intente más tarde.</p>';
+    }
+}
