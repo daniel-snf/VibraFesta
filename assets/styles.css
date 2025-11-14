@@ -295,6 +295,18 @@ section{ padding:80px 0; }
 .Mensajes-grid{
   display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:32px; max-height: 500px; overflow-y: auto;
 }
+.Mensajes-grid::-webkit-scrollbar {
+    width: 8px;
+}
+.Mensajes-grid::-webkit-scrollbar-track {
+    background: #f1f1f1; border-radius: 10px;
+}
+.Mensajes-grid::-webkit-scrollbar-thumb {
+    background: #c1c1c1; border-radius: 10px;
+}
+.Mensajes-grid::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1; 
+}
 .Mensaje-card{
   background:rgba(0,0,0,.3); border:1px solid var(--tint-20); padding:32px;
   transition:border-color .3s ease;
