@@ -111,9 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // ================================
   const sendBtn = document.getElementById('sendBtn');
   const contactSuccessMessage = document.getElementById('contact-success-message');
-  
+
   if (sendBtn) {
-    sendBtn.addEventListener('click', function(e) {
+    sendBtn.addEventListener('click', async function(e) {
       e.preventDefault();
       
       const messageInput = document.getElementById('message-input');
@@ -125,25 +125,60 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Crear URL con parámetros
-      const baseUrl = 'https://script.google.com/macros/s/TU_NUEVA_WEB_APP_URL/exec';
-      const params = new URLSearchParams({
-        nombre: nombreInput.value.trim(),
-        mensaje: messageInput.value.trim(),
-        fuente: 'vibrafesta.com'
-      });
-      
-      // Redirigir a la URL (esto abrirá en nueva pestaña)
-      window.open(`${baseUrl}?${params.toString()}`, '_blank');
-      
-      // Mostrar mensaje de éxito
+      // Ocultar mensaje de éxito anterior si existe
       if (contactSuccessMessage) {
-        contactSuccessMessage.style.display = 'block';
+        contactSuccessMessage.style.display = 'none';
       }
       
-      // Limpiar formulario
-      messageInput.value = '';
-      nombreInput.value = '';
+      // Mostrar estado de carga en el botón
+      const originalText = sendBtn.textContent;
+      sendBtn.textContent = 'Enviando...';
+      sendBtn.disabled = true;
+      
+      // Datos a enviar
+      const formData = {
+        mensaje: messageInput.value.trim(),
+        nombre: nombreInput.value.trim(),
+        fecha: new Date().toISOString()
+      };
+      
+      try {
+        // URL de tu API - reemplaza con la URL real de tu API
+        const apiUrl = 'https://tu-api.com/endpoint-mensajes';
+        
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        if (response.ok) {
+          // Éxito
+          if (contactSuccessMessage) {
+            contactSuccessMessage.style.display = 'block';
+          } else {
+            alert('¡Mensaje enviado con éxito!');
+          }
+          
+          // Limpiar el formulario
+          messageInput.value = '';
+          nombreInput.value = '';
+          
+          // Opcional: Recargar los mensajes después de enviar uno nuevo
+          cargarMensajes();
+        } else {
+          throw new Error('Error en la respuesta del servidor');
+        }
+      } catch (error) {
+        console.error('Error al enviar el mensaje:', error);
+        alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+      } finally {
+        // Restaurar el botón a su estado original
+        sendBtn.textContent = originalText;
+        sendBtn.disabled = false;
+      }
     });
   }
 
