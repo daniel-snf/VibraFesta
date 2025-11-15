@@ -203,22 +203,15 @@
     </section>
 
         <!------------------------------------------------------------------------------------------------------->
-    <section class="contact" id="contact">
+     <section class="contact" id="contact">
         <div class="container">
             <div class="contact-form">
                 <h2 class="section-title">Deja <span>tu mensaje</span></h2>
-                <!-- Cambia a formulario tradicional -->
-                <form action="https://script.google.com/macros/s/AKfycbxwsbhYsDTnnO1giVpZ0MJDD5sSGpibyyW_xjFfHUq0iRTTQA9l8y1crR_2RRaUTE3j/exec" 
-                      method="POST" 
-                      target="hiddenFrame">
-                    <textarea name="mensaje" rows="5" cols="30" placeholder="Escribe tu mensaje aquí..." class="form-input" required></textarea>
-                    <input name="nombre" type="text" placeholder="Ingresá tu nombre" class="form-input" required>
+                <form>
+                    <textarea id="message-input" name="message-input" rows="5" cols="30" placeholder="Escribe tu mensaje aquí..." class="form-input"></textarea>
+                    <input id="nombre-input" type="text" placeholder="Ingresá tu nombre" class="form-input" required>
                     <button type="submit" class="btn">Enviar mensaje</button>
-                    <p id="contact-success-message" style="display: none; color: green; margin-top: 15px;">
-                        ¡Gracias! Tu mensaje ha sido enviado.
-                    </p>
                 </form>
-                <iframe name="hiddenFrame" style="display: none;"></iframe>
             </div>
         </div>
     </section>
