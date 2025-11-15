@@ -109,15 +109,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // ================================
   // Formulario de Contacto - Envío de Mensajes
   // ================================
-  const sendBtn = document.getElementById('sendBtn');
-  const contactSuccessMessage = document.getElementById('contact-success-message');
-
-  if (sendBtn) {
-    sendBtn.addEventListener('click', async function(e) {
+  const contactForm = document.querySelector('#contact form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       const messageInput = document.getElementById('message-input');
+      console.log(messageInput);
       const nombreInput = document.getElementById('nombre-input');
+      console.log(nombreInput);
       
       // Validación básica
       if (!messageInput.value.trim() || !nombreInput.value.trim()) {
@@ -125,46 +125,27 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Ocultar mensaje de éxito anterior si existe
-      if (contactSuccessMessage) {
-        contactSuccessMessage.style.display = 'none';
-      }
-      
-      // Mostrar estado de carga en el botón
-      const originalText = sendBtn.textContent;
-      sendBtn.textContent = 'Enviando...';
-      sendBtn.disabled = true;
-      
       // Datos a enviar
       const formData = {
-        mensaje: messageInput.value.trim(),
+        message: messageInput.value.trim(),
         nombre: nombreInput.value.trim(),
-        fecha: new Date().toISOString()
       };
       
       try {
         // URL de tu API - reemplaza con la URL real de tu API
-        const apiUrl = 'https://tu-api.com/endpoint-mensajes';
-        
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbylumG7o0d-ZilviTDlR0vc17MiyVgznTZHhk4AZg1aBsklV6ByG6mPCEsxg9SeaKwI/exec';
         const response = await fetch(apiUrl, {
           method: 'POST',
+          mode: 'no-cors',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(formData)
         });
-        
         if (response.ok) {
           // Éxito
-          if (contactSuccessMessage) {
-            contactSuccessMessage.style.display = 'block';
-          } else {
-            alert('¡Mensaje enviado con éxito!');
-          }
-          
-          // Limpiar el formulario
-          messageInput.value = '';
-          nombreInput.value = '';
+          alert('¡Mensaje enviado con éxito!');
+          contactForm.reset(); // Limpiar el formulario
           
           // Opcional: Recargar los mensajes después de enviar uno nuevo
           cargarMensajes();
@@ -174,10 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
       } catch (error) {
         console.error('Error al enviar el mensaje:', error);
         alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
-      } finally {
-        // Restaurar el botón a su estado original
-        sendBtn.textContent = originalText;
-        sendBtn.disabled = false;
       }
     });
   }
@@ -295,7 +272,7 @@ async function cargarMensajes() {
     }
 
     // 3. Si lo encuentra, procede a cargar...
-    const urlDeLaApi = 'https://script.google.com/macros/s/AKfycbx_DzVqhTd2KndZY6YZ040P06Jf2j9xaFpCWMQw1Ay3CB8K2Na5ySCXNzDLGKiN8Q/exec';
+    const urlDeLaApi = 'https://script.google.com/macros/s/AKfycbylumG7o0d-ZilviTDlR0vc17MiyVgznTZHhk4AZg1aBsklV6ByG6mPCEsxg9SeaKwI/exec';
     
     contenedor.innerHTML = '<p>Cargando felicitaciones...</p>';
 
