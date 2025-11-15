@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           body: JSON.stringify(formData)
         });
-        if (response.ok) {
+        if (!response.ok) {
           // Éxito
           alert('¡Mensaje enviado con éxito!');
           contactForm.reset(); // Limpiar el formulario
