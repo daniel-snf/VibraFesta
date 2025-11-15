@@ -207,12 +207,18 @@
         <div class="container">
             <div class="contact-form">
                 <h2 class="section-title">Deja <span>tu mensaje</span></h2>
-                <form>
-                    <textarea id="message-input" name="message" rows="5" cols="30" placeholder="Escribe tu mensaje aquí..." class="form-input"></textarea>
-                    <input id="nombre-input" name="name" type="text" placeholder="Ingresá tu nombre" class="form-input" required>
-                    <button type="button" class="btn" id="sendBtn">Enviar mensaje</button>
-                    <p id="contact-success-message" style="display: none; color: green; margin-top: 15px;">¡Gracias! Tu mensaje ha sido enviado.</p>
+                <!-- Cambia a formulario tradicional -->
+                <form action="https://script.google.com/macros/s/TU_NUEVA_WEB_APP_URL/exec" 
+                      method="POST" 
+                      target="hiddenFrame">
+                    <textarea name="mensaje" rows="5" cols="30" placeholder="Escribe tu mensaje aquí..." class="form-input" required></textarea>
+                    <input name="nombre" type="text" placeholder="Ingresá tu nombre" class="form-input" required>
+                    <button type="submit" class="btn">Enviar mensaje</button>
+                    <p id="contact-success-message" style="display: none; color: green; margin-top: 15px;">
+                        ¡Gracias! Tu mensaje ha sido enviado.
+                    </p>
                 </form>
+                <iframe name="hiddenFrame" style="display: none;"></iframe>
             </div>
         </div>
     </section>
