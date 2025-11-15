@@ -1,4 +1,4 @@
-/* Tu archivo assets/script.js completo y CORREGIDO */
+/* Tu archivo assets/script.js completo y modificado */
 
 document.addEventListener('DOMContentLoaded', function() {
   // ================================
@@ -107,8 +107,85 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ================================
+  // Formulario de Contacto - Envío de Mensajes
+  // ================================
+  const sendBtn = document.getElementById('sendBtn');
+  const contactSuccessMessage = document.getElementById('contact-success-message');
+
+  if (sendBtn) {
+    sendBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      
+      const messageInput = document.getElementById('message-input');
+      const nombreInput = document.getElementById('nombre-input');
+      
+      // Validación básica
+      if (!messageInput.value.trim() || !nombreInput.value.trim()) {
+        alert('Por favor, completa todos los campos obligatorios.');
+        return;
+      }
+      
+      // Ocultar mensaje de éxito anterior si existe
+      if (contactSuccessMessage) {
+        contactSuccessMessage.style.display = 'none';
+      }
+      
+      // Mostrar estado de carga en el botón
+      const originalText = sendBtn.textContent;
+      sendBtn.textContent = 'Enviando...';
+      sendBtn.disabled = true;
+      
+      // Datos a enviar
+      const formData = {
+        mensaje: messageInput.value.trim(),
+        nombre: nombreInput.value.trim(),
+        fecha: new Date().toISOString()
+      };
+      
+      try {
+        // URL de tu API - reemplaza con la URL real de tu API
+        const apiUrl = 'https://tu-api.com/endpoint-mensajes';
+        
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        if (response.ok) {
+          // Éxito
+          if (contactSuccessMessage) {
+            contactSuccessMessage.style.display = 'block';
+          } else {
+            alert('¡Mensaje enviado con éxito!');
+          }
+          
+          // Limpiar el formulario
+          messageInput.value = '';
+          nombreInput.value = '';
+          
+          // Opcional: Recargar los mensajes después de enviar uno nuevo
+          cargarMensajes();
+        } else {
+          throw new Error('Error en la respuesta del servidor');
+        }
+      } catch (error) {
+        console.error('Error al enviar el mensaje:', error);
+        alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+      } finally {
+        // Restaurar el botón a su estado original
+        sendBtn.textContent = originalText;
+        sendBtn.disabled = false;
+      }
+    });
+  }
+
+  // ================================
   // Lightbox de galería (gallery.html)
   // ================================
+  // ... (Tu código de lightbox está perfecto y no se toca) ...
   (function ensureLightbox() {
     if (document.getElementById('lightbox')) return;
     const wrapper = document.createElement('div');
