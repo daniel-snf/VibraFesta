@@ -1,4 +1,4 @@
-/* Tu archivo assets/script.js completo y modificado */
+/* Tu archivo assets/script.js completo y CORREGIDO */
 
 document.addEventListener('DOMContentLoaded', function() {
   // ================================
@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // ================================
   // Lightbox de galería (gallery.html)
   // ================================
-  // ... (Tu código de lightbox está perfecto y no se toca) ...
   (function ensureLightbox() {
     if (document.getElementById('lightbox')) return;
     const wrapper = document.createElement('div');
