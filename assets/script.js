@@ -106,14 +106,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // ================================
   // Formulario de Contacto - Envío de Mensajes
   // ================================
   const sendBtn = document.getElementById('sendBtn');
   const contactSuccessMessage = document.getElementById('contact-success-message');
-
+  
   if (sendBtn) {
-    sendBtn.addEventListener('click', async function(e) {
+    sendBtn.addEventListener('click', function(e) {
       e.preventDefault();
       
       const messageInput = document.getElementById('message-input');
@@ -142,43 +141,48 @@ document.addEventListener('DOMContentLoaded', function() {
         fecha: new Date().toISOString()
       };
       
-      try {
-        // URL de tu API - reemplaza con la URL real de tu API
-        const apiUrl = 'https://script.google.com/macros/s/AKfycbx_DzVqhTd2KndZY6YZ040P06Jf2j9xaFpCWMQw1Ay3CB8K2Na5ySCXNzDLGKiN8Q/exec';
-        
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData)
-        });
-        
-        if (response.ok) {
-          // Éxito
-          if (contactSuccessMessage) {
-            contactSuccessMessage.style.display = 'block';
+      // Usar XMLHttpRequest para evitar problemas CORS
+      const xhr = new XMLHttpRequest();
+      const apiUrl = 'https://script.google.com/macros/s/AKfycbx_DzVqhTd2KndZY6YZ040P06Jf2j9xaFpCWMQw1Ay3CB8K2Na5ySCXNzDLGKiN8Q/exec';
+      
+      xhr.open('POST', apiUrl);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          // Restaurar el botón
+          sendBtn.textContent = originalText;
+          sendBtn.disabled = false;
+          
+          if (xhr.status === 200) {
+            // Éxito
+            if (contactSuccessMessage) {
+              contactSuccessMessage.style.display = 'block';
+            } else {
+              alert('¡Mensaje enviado con éxito!');
+            }
+            
+            // Limpiar el formulario
+            messageInput.value = '';
+            nombreInput.value = '';
+            
+            // Opcional: Recargar los mensajes después de enviar uno nuevo
+            cargarMensajes();
           } else {
-            alert('¡Mensaje enviado con éxito!');
+            console.error('Error al enviar el mensaje:', xhr.status, xhr.statusText);
+            alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
           }
-          
-          // Limpiar el formulario
-          messageInput.value = '';
-          nombreInput.value = '';
-          
-          // Opcional: Recargar los mensajes después de enviar uno nuevo
-          cargarMensajes();
-        } else {
-          throw new Error('Error en la respuesta del servidor');
         }
-      } catch (error) {
-        console.error('Error al enviar el mensaje:', error);
-        alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
-      } finally {
-        // Restaurar el botón a su estado original
+      };
+      
+      xhr.onerror = function() {
         sendBtn.textContent = originalText;
         sendBtn.disabled = false;
-      }
+        console.error('Error de red al enviar el mensaje');
+        alert('Error de conexión. Por favor, inténtalo de nuevo.');
+      };
+      
+      xhr.send(JSON.stringify(formData));
     });
   }
 
