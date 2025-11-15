@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       try {
         // URL de tu API - reemplaza con la URL real de tu API
-        const apiUrl = 'https://tu-api.com/endpoint-mensajes';
+        const apiUrl = 'https://script.google.com/macros/s/AKfycbx_DzVqhTd2KndZY6YZ040P06Jf2j9xaFpCWMQw1Ay3CB8K2Na5ySCXNzDLGKiN8Q/exec';
         
         const response = await fetch(apiUrl, {
           method: 'POST',
