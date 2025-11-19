@@ -54,44 +54,71 @@
     </header>
 
     <section class="hero" id="home">
-    <div class="hero-slide active">
-        <img
-        src="img/portada_modificada.jpeg"
-        alt="Fondo navideño sobrio"
-        class="hero-image"
-        />
-        <!-- 
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-        <h1 class="hero-title">EXPERIENCIA </h1>
-        <h1 class="hero-title">VIBRA FESTA</h1>
-        <p class="hero-subtitle">Donde los expositores se encuentran con la comunidad</p>
+        <div class="hero-slide active">
+            <picture>
+                <!-- 📱 Imagen para móvil -->
+                <source
+                    srcset="img/FLYER_VIBRAFESTA_DICIEMBRE_1.jpg"
+                    media="(max-width: 768px)"
+                >
+                <!-- 💻 Imagen para escritorio -->
+                <source
+                    srcset="img/portada_modificada.jpeg"
+                    media="(min-width: 769px)"
+                >
+                <!-- Fallback -->
+                <img
+                    src="img/portada_modificada.jpeg"
+                    alt="Fondo navideño sobrio"
+                    class="hero-image"
+                />
+            </picture>
+            <!-- 
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+            <h1 class="hero-title">EXPERIENCIA </h1>
+            <h1 class="hero-title">VIBRA FESTA</h1>
+            <p class="hero-subtitle">Donde los expositores se encuentran con la comunidad</p>
+            </div>
+            -->
         </div>
-        -->
-    </div>
 
-    <div class="hero-slide">
-        <img
-        src="img/Untitled_design.PNG"
-        alt="Fondo navideño sobrio"
-        class="hero-image"
-        />
-        <!-- 
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-        <h1 class="hero-title hero-title-bold">PRÓXIMOS EVENTOS</h1>
-        <p class="hero-subtitle">Súmate a nuestra próxima experiencia Vibra</p>
-        <p class="hero-subtitle">6 y 7 diciembre</p>
-        <a href="#events" class="btn">Ver eventos</a>
+        <div class="hero-slide">
+            <picture>
+                <!-- 📱 Imagen para móvil -->
+                <source
+                    srcset="img/Untitled_design.PNG"
+                    media="(max-width: 768px)"
+                >
+                <!-- 💻 Imagen para escritorio -->
+                <source
+                    srcset="img/Untitled_design.PNG"
+                    media="(min-width: 769px)"
+                >
+                <!-- Fallback -->
+                <img
+                    src="img/Untitled_design.PNG"
+                    alt="Fondo navideño sobrio"
+                    class="hero-image"
+                />
+            </picture>
+            <!-- 
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+            <h1 class="hero-title hero-title-bold">PRÓXIMOS EVENTOS</h1>
+            <p class="hero-subtitle">Súmate a nuestra próxima experiencia Vibra</p>
+            <p class="hero-subtitle">6 y 7 diciembre</p>
+            <a href="#events" class="btn">Ver eventos</a>
+            </div>
+            -->
         </div>
-         -->
-    </div>
 
-    <div class="slider-dots" aria-label="Selector de diapositivas">
-        <div class="dot active" data-slide="0" aria-label="Diapositiva 1"></div>
-        <div class="dot" data-slide="1" aria-label="Diapositiva 2"></div>
-    </div>
+        <div class="slider-dots" aria-label="Selector de diapositivas">
+            <div class="dot active" data-slide="0" aria-label="Diapositiva 1"></div>
+            <div class="dot" data-slide="1" aria-label="Diapositiva 2"></div>
+        </div>
     </section>
+
 
 
     <section class="about" id="about">
