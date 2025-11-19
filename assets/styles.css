@@ -191,8 +191,8 @@ nav{
   width:100%;
   height:100%;
   /* Muestra toda la imagen sin recortar */
-  object-fit: contain;
-  object-position: center;
+  object-fit: cover;
+  object-position: center 25%;
   background:#000; /* relleno negro en los bordes si sobra espacio */
 }
 .hero-overlay{ position:absolute; inset:0; background:rgba(0,0,0,.6); }
@@ -370,14 +370,17 @@ section{ padding:80px 0; }
 
 /* 📱 Carrusel horizontal de Felicitaciones en móvil */
 @media (max-width: 768px){
+    .slider-dots{
+    bottom: 4px;   /* antes estaba en 32px */
+  }
   .hero{
-      height: 100vh;
-      margin-top: var(--header-h);  /* igual que ahora */
+      height: calc(100vh - 40px);
+      margin-top: var(--header-h);
     }
 
     .hero-image{
-      object-fit: cover;          /* llena ancho, sin bordes vacíos */
-      object-position: center 18%;/* sube un poquito la imagen */
+      object-fit: contain;         /* llena ancho, sin bordes vacíos */
+      object-position: center top;/* sube un poquito la imagen */
       transform: scale(1);     /* mini zoom para traer más los lados */
       background:#000;            /* por si sobra algo, negro */
     }
