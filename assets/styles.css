@@ -371,7 +371,7 @@ section{ padding:80px 0; }
 /* 📱 Carrusel horizontal de Felicitaciones en móvil */
 @media (max-width: 768px){
     .slider-dots{
-    bottom: 4px;   /* antes estaba en 32px */
+    bottom: 150px;   /* antes estaba en 32px */
   }
   .hero{
       height: calc(100vh - 40px);
