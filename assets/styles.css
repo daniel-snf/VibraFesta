@@ -378,6 +378,7 @@ section{ padding:80px 0; }
     .hero-image{
       object-fit: cover;          /* llena ancho, sin bordes vacíos */
       object-position: center 18%;/* sube un poquito la imagen */
+      transform: scale(1);     /* mini zoom para traer más los lados */
       background:#000;            /* por si sobra algo, negro */
     }
   .Mensajes-grid{
