@@ -89,9 +89,9 @@
         document.querySelector('.gallery-hero h1').textContent = title;
         document.querySelector('.gallery-hero p').textContent  = subtitle || '';
         if (cover){
-          const webpCover = cover.replace(/\.[^/.]+$/, ".webp");
+          // Usamos la ruta tal cual viene en JSON (jpg, jpeg, png, etc.)
           hero.style.backgroundImage =
-            `linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.60)), url('${webpCover}')`;
+            `linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.60)), url('${cover}')`;
           hero.style.backgroundSize = 'cover';
           hero.style.backgroundPosition = 'center';
         }
@@ -131,23 +131,24 @@
 
       async function renderList(){
         crumb.innerHTML = `<a href="/">Inicio</a> <span>›</span> Eventos`;
-        setHero('Eventos', 'Explorá algunos de nuestros eventos recientes. Cada tarjeta te lleva al detalle con fotos y highlights.');
+        setHero(
+          'Eventos',
+          'Explorá algunos de nuestros eventos recientes. Cada tarjeta te lleva al detalle con fotos y highlights.'
+        );
 
         eventos.sort((a,b)=> new Date(b.date) - new Date(a.date));
 
         grid.innerHTML = eventos.map(ev => {
-          const webpCover = ev.cover.replace(/\.[^/.]+$/, ".webp");
           const href = `/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}`;
           return `
-        <article class="card" data-href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
-          <!-- ✅ sin CACHE_BUST en la imagen -->
+        <article class="card" data-href="${href}">
           <img src="${ev.cover}" alt="${ev.title} — portada" loading="lazy" decoding="async">
           <div class="body">
             <h3>${ev.title}</h3>
             <p>${ev.subtitle ? ev.subtitle : `Fotos de la edición ${ev.title}.`}</p>
           </div>
           <div class="actions">
-            <a class="btn-link" href="/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}">
+            <a class="btn-link" href="${href}">
               Ver evento <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </a>
           </div>
@@ -204,10 +205,9 @@
         const imgs = (found.json.images || []);
 
         photosDiv.innerHTML = imgs.map(name => {
-          const webpName = name.replace(/\.[^/.]+$/, ".webp");
           return `
             <figure class="photo">
-              <img src="${base}${encodeURIComponent(webpName)}" alt="${ev.title} — ${name}" loading="lazy" decoding="async">
+              <img src="${base}${encodeURIComponent(name)}" alt="${ev.title} — ${name}" loading="lazy" decoding="async">
             </figure>
           `;
         }).join('');
