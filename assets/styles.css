@@ -3,17 +3,17 @@
    ========================================================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
- :root{
+:root{
   /* Colores base */
-  --bg:#000000;
-  --ink:#ffffff;
-  --accent:#F2AFBA;     /* acento principal */
-  --accent-2:#7A8443;   /* acento secundario */
-  --tint:#E1DFD9;       /* beige para bordes/detalles */
-  --tint-20: rgba(225,223,217,0.20);
-  --tint-30: rgba(225,223,217,0.30);
-  --tint-10: rgba(225,223,217,0.10);
-  --muted:#9ca3af;
+  --bg: #F1E9D5;        /* ✅ fondo beige */
+  --ink: #222222;       /* texto principal oscuro para buen contraste */
+  --accent: #F2AFB9;    /* rosa suave (puntito, acentos) */
+  --accent-2: #76823A;  /* verde marca VIBRA */
+  --tint: #EFDCC1;      /* beige un poquito más oscuro para bordes */
+  --tint-20: rgba(239,220,193,0.20);
+  --tint-30: rgba(239,220,193,0.30);
+  --tint-10: rgba(239,220,193,0.10);
+  --muted:#8b8b8b;
 
   /* Layout */
   --header-h: 120px;
@@ -26,6 +26,7 @@
   --radius-soft: 14px;
   --radius-pill: 999px;
 }
+
 
 
 body{
@@ -52,7 +53,7 @@ h1,h2,h3,h4,h5,h6{
    ========================================================= */
 header{
   position:fixed; top:0; left:0; right:0;
-  background:rgba(0,0,0,.95);
+  background:rgba(241,233,213,.95); /* beige translúcido */
   backdrop-filter:blur(10px);
   border-bottom:1px solid var(--tint-20);
   z-index:1000;
@@ -99,16 +100,22 @@ nav{
 .mobile-menu{
   display:none; flex-direction:column;
   position:fixed; top:64px; left:0; right:0; bottom:0;
-  background:rgba(0,0,0,.96);
+  background:rgba(241,233,213,.98);  /* antes negro */
   padding:16px 20px 24px;
   border-top:1px solid var(--tint-20);
   z-index:2500;
 }
-.mobile-menu.active{ display:flex; }
 .mobile-menu a{
-  color:var(--ink); text-decoration:none;
-  padding:14px 6px; font-size:15px; text-transform:uppercase; letter-spacing:1px;
+  color:var(--ink);
+  text-decoration:none;
+  padding:14px 6px;
+  font-size:15px;
+  text-transform:uppercase;
+  letter-spacing:1px;
 }
+
+.mobile-menu.active{ display:flex; }
+
 .mobile-menu a:hover, .mobile-menu a:active{ color:var(--accent); }
 
 /* --- Ajuste sólo para ESCRITORIO grande: margen negativo de “recorte” --- */
@@ -190,24 +197,39 @@ nav{
 .hero-image{
   width:100%;
   height:100%;
-  /* Muestra toda la imagen sin recortar */
   object-fit: cover;
   object-position: center 25%;
-  background:#000; /* relleno negro en los bordes si sobra espacio */
+  background:var(--bg); /* beige de fondo si sobra */
 }
-.hero-overlay{ position:absolute; inset:0; background:rgba(0,0,0,.6); }
+
+/* overlay cálido, no negro */
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(241,233,213,0.70),
+    rgba(0,0,0,0.20)
+  );
+}
 .hero-content{
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   text-align:center; width:90%; max-width:800px;
 }
 .hero-title{
   font-family:var(--brand-display);
-  font-weight:400; letter-spacing:1px; text-transform:uppercase;
-  font-size:40px; margin-bottom:20px;
+  font-weight:400;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  font-size:40px;
+  margin-bottom:20px;
+  color: var(--accent-2);  /* 💚 verde marca */
 }
 .hero-subtitle{
-  font-size:24px; color:var(--muted);
-  letter-spacing:1px; margin-bottom:40px;
+  font-size:24px;
+  color: color-mix(in srgb, var(--muted) 80%, #ffffff 20%);
+  letter-spacing:1px;
+  margin-bottom:40px;
 }
 .hero-title-bold{
   font-weight: 700;   /* más gordita */
@@ -236,6 +258,25 @@ section{ padding:80px 0; }
   letter-spacing:2px; text-transform:uppercase;
 }
 .section-title span{ color:var(--accent); }
+
+.section-title-line {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 12px;
+}
+
+.section-title-line::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 3px;
+  background: var(--accent-2); /* verde vibra */
+  border-radius: 3px;
+}
+
 
 /* =========================================================
    ABOUT
@@ -309,13 +350,14 @@ section{ padding:80px 0; }
 .testimonials-grid{
   display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:32px;
 }
-.testimonial-card{
-  background:rgba(0,0,0,.3);
+.testimonial-card,
+.Mensaje-card{
+  background:rgba(255,255,255,.92);          /* blanco suave */
   border:1px solid var(--tint-20);
-  border-radius: var(--radius-card);   /* ✅ curvas */
+  border-radius: var(--radius-card);
   padding:32px;
   transition:border-color .3s ease, box-shadow .2s ease;
-  box-shadow:0 10px 26px rgba(0,0,0,.28);
+  box-shadow:0 10px 24px rgba(0,0,0,.12);
 }
 .testimonial-card:hover{
   border-color:var(--tint-30);
@@ -349,14 +391,7 @@ section{ padding:80px 0; }
 .Mensajes-grid::-webkit-scrollbar-thumb:hover {
     background: #a1a1a1; 
 }
-.Mensaje-card{
-  background:rgba(0,0,0,.3);
-  border:1px solid var(--tint-20);
-  border-radius: var(--radius-card);   /* ✅ mismo estilo */
-  padding:32px;
-  transition:border-color .3s ease, box-shadow .2s ease;
-  box-shadow:0 10px 26px rgba(0,0,0,.28);
-}
+
 .Mensaje-card:hover{
   border-color:var(--tint-30);
   box-shadow:0 12px 30px rgba(2,8,23,.30);
@@ -367,6 +402,25 @@ section{ padding:80px 0; }
 .Mensaje-author{ border-top:1px solid var(--tint-20); padding-top:16px; }
 .author-name{ font-weight:700; letter-spacing:1px; margin-bottom:4px; }
 .author-business{ font-size:14px; color:var(--accent-2); }
+.Mensajes-dots{
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.msg-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #d4d4d4;            /* gris clarito para los inactivos */
+  display: inline-block;
+}
+
+/* solo cambia el color del activo, NO el tamaño */
+.msg-dot.active{
+  background: var(--accent-2);    /* verde Vibra */
+}
 
 /* 📱 Carrusel horizontal de Felicitaciones en móvil */
 @media (max-width: 768px){
@@ -382,7 +436,7 @@ section{ padding:80px 0; }
       object-fit: contain;         /* llena ancho, sin bordes vacíos */
       object-position: center top;/* sube un poquito la imagen */
       transform: scale(1);     /* mini zoom para traer más los lados */
-      background:#000;            /* por si sobra algo, negro */
+      background:var(--bg);                 /* por si sobra algo, negro */
     }
   .Mensajes-grid{
     display:flex;                 /* de grid → flex fila */
@@ -402,13 +456,10 @@ section{ padding:80px 0; }
   }
 
   .Mensajes-grid::-webkit-scrollbar-track{
-    background:#111;
-    border-radius:999px;
+    background:var(--tint-10);
   }
-
   .Mensajes-grid::-webkit-scrollbar-thumb{
-    background:#444;
-    border-radius:999px;
+    background:color-mix(in srgb, var(--accent-2) 40%, #999 60%);
   }
 
   .Mensaje-card{
@@ -424,7 +475,12 @@ section{ padding:80px 0; }
    VENDORS
    ========================================================= */
 .vendors-content{ max-width:768px; margin:0 auto; text-align:center; }
-.vendors-text{ font-size:18px; color:#d1d5db; line-height:1.6; margin-bottom:40px; }
+.vendors-text{
+  font-size:18px;
+  color:var(--muted);   /* mismo gris suave del resto */
+  line-height:1.6;
+  margin-bottom:40px;
+}
 
 /* =========================================================
    SPONSORS (brand wall)
@@ -434,8 +490,13 @@ section{ padding:80px 0; }
   padding-top:56px; padding-bottom:72px;
 }
 .sponsors-title{
-  font-size:26px; text-align:center; margin-bottom:36px;
-  letter-spacing:2px; text-transform:uppercase; color:var(--tint);
+  font-size:26px;
+  text-align:center;
+  margin-bottom:36px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color: color-mix(in srgb, var(--accent-2) 70%, #111 30%);
+  /* si querés simple: color: var(--accent-2); */
 }
 /* Grid base: 3 columnas fijas centradas */
 .sponsors-grid{
@@ -499,7 +560,7 @@ section{ padding:80px 0; }
 .contact-form{ max-width:600px; margin:0 auto; }
 .form-input{
   width:100%;
-  background:rgba(0,0,0,.3);
+  background:#ffffff;
   border:1px solid var(--tint-20);
   border-radius: var(--radius-soft);   /* ✅ esquinas suaves */
   padding:16px 24px;
@@ -612,9 +673,13 @@ main{ padding-top:120px; }
 .gallery-hero{
   height:46vh; min-height:320px; position:relative; margin-top:80px;
   display:flex; align-items:center; justify-content:center; text-align:center;
-  background:linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,.6)),
-             url('/assets/gallery/vibra_portal.webp') center/cover no-repeat;
   border-bottom:1px solid var(--tint-20);
+    background:linear-gradient(
+    180deg,
+    rgba(241,233,213,0.75),
+    rgba(0,0,0,0.25)
+  ),
+  url('/assets/gallery/vibra_portal.webp') center/cover no-repeat;
 }
 
 .gallery-hero h1{
@@ -649,13 +714,18 @@ main{ padding-top:120px; }
 .card > img{ width:100%; aspect-ratio:4/3; object-fit:cover; display:block; }
 
 /* Cuerpo */
-.card .body{ background:#000; padding:14px 18px 12px; border:0; border-radius:0; }
+.card .body{
+  background:color-mix(in srgb, var(--bg) 80%, #ffffff 20%);
+  padding:14px 18px 12px;
+  border:0;
+  border-radius:0;
+}
 .card h3{ margin:0 0 6px; color:var(--ink); font-size:18px; letter-spacing:.4px; }
 .card p{ margin:0; color:var(--ink); }
 
 /* Acciones + botón "Ver evento" */
 .card .actions{
-  background:#000;
+  background:transparent;
   padding:12px 18px 18px;
   border-radius:0 0 18px 18px;
 }

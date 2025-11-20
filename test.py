@@ -1,18 +1,24 @@
-import os, json
+from PIL import Image
 
-base_path = "assets/gallery"
+# Colores
+GREEN = (0x76, 0x82, 0x3A)  # #76823A
 
-for event in os.listdir(base_path):
-    event_path = os.path.join(base_path, event, "fotos")
-    if not os.path.isdir(event_path):
+# Cargar el logo
+img = Image.open("img/logo.png").convert("RGBA")
+pixels = img.getdata()
+
+new_pixels = []
+for r, g, b, a in pixels:
+    # Mantener transparencia
+    if a == 0:
+        new_pixels.append((r, g, b, a))
         continue
 
-    images = [f for f in os.listdir(event_path) if f.lower().endswith((".jpg", ".jpeg", ".png"))]
-    images.sort()
+    # Detectar "blancos" (el texto)
+    if r > 230 and g > 230 and b > 230:
+        new_pixels.append((*GREEN, a))   # texto en verde
+    else:
+        new_pixels.append((r, g, b, a))  # puntito rosa + fondo negro igual
 
-    output = {"images": images}
-    json_path = os.path.join(base_path, event, "photos.json")
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
-
-    print(f"✅ Generado: {json_path} ({len(images)} fotos)")
+img.putdata(new_pixels)
+img.save("logo_vibra_verde.png")
