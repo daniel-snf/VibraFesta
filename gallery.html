@@ -145,7 +145,7 @@
               <img src="${webpCover}" alt="${ev.title} — portada" loading="lazy" decoding="async">
               <div class="body">
                 <h3>${ev.title}</h3>
-                <p>Fotos de la edición ${ev.title}.</p>
+                <p>${ev.subtitle || `Fotos de la edición ${ev.title}.`}</p>
               </div>
               <div class="actions">
                 <a class="btn-link" href="${href}">
