@@ -4,10 +4,10 @@ import time
 
 # --- CONFIGURACIÓN ---
 # 1. Esta es la carpeta de 1.7 GB que vamos a optimizar
-SOURCE_DIR = "assets" 
+SOURCE_DIR = r"C:/Users/rosch/OneDrive/Desktop/Vibra/RESTANTANTES_FEBRERO2024"
 
 # 2. Carpeta NUEVA temporal donde irá todo optimizado
-OUTPUT_DIR = "assets_optimizados"
+OUTPUT_DIR = r"C:/Users/rosch/OneDrive/Desktop/Vibra/RESTANTANTES_FEBRERO2024_OPTIMIZADO"
 
 # 3. Ajustes de optimización
 MAX_WIDTH = 1200       # Ancho máximo (en píxeles)

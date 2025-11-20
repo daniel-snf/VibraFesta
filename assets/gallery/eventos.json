@@ -1,5 +1,12 @@
 [
-
+  {
+    "title": "ANIVERSARIO VIBRA",
+    "slug": "aniversario-vibra",
+    "date": "2025-10-01",
+    "cover": "assets/gallery/ANIVERSARIO_VIBRA_OPTIMIZADO/cover.jpg",
+    "folder": "ANIVERSARIO VIBRA",
+    "subtitle": "Edición especial II aniversario"
+  },
   {
     "slug": "octubre-2025",
     "title": "Octubre 2025",
@@ -13,6 +20,14 @@
     "date": "2025-09-16",
     "cover": "assets/gallery/SEPTIEMBRE 2025/fotos/IMG_2399.JPG",
     "folder": "SEPTIEMBRE 2025"
+  },
+    {
+    "title": "Vibra X The Picnic Fest",
+    "slug": "vibra-picnic",
+    "date": "2025-08-01",
+    "cover": "assets/gallery/VIBRA_PICNICFEST_OPTIMIZADO/cover.jpg",
+    "folder": "ANIVERSARIO VIBRA",
+    "subtitle": ""
   },
   {
     "slug": "agosto-2025",
