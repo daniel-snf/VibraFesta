@@ -52,11 +52,12 @@ h1,h2,h3,h4,h5,h6{
    HEADER + NAV (DESKTOP por defecto)
    ========================================================= */
 header{
-  position:fixed; top:0; left:0; right:0;
-  background:rgba(241,233,213,.95); /* beige translúcido */
-  backdrop-filter:blur(10px);
+  position:fixed;
+  top:0; left:0; right:0;
+  background: var(--bg);          /* ✅ fondo beige sólido */
   border-bottom:1px solid var(--tint-20);
-  z-index:1000;
+  z-index:3000;                   /* por encima de todo */
+  backdrop-filter:none;           /* sin transparencia */
 }
 
 nav{
@@ -96,15 +97,47 @@ nav{
   color:var(--ink); font-size:22px; cursor:pointer;
 }
 
-/* Panel de menú móvil (se muestra sólo con .active) */
+/* Panel de menú móvil (se muestra con .active) */
 .mobile-menu{
-  display:none; flex-direction:column;
-  position:fixed; top:64px; left:0; right:0; bottom:0;
-  background:rgba(241,233,213,.98);  /* antes negro */
+  display:flex;
+  flex-direction:column;
+  position:fixed;
+  top: var(--header-h);
+  left:0;
+  bottom:0;
+  width: 70%;                 /* ≈ mitad de la pantalla */
+  max-width: 320px;
+  background: var(--bg);      /* beige */
   padding:16px 20px 24px;
-  border-top:1px solid var(--tint-20);
-  z-index:2500;
+  border-right:1px solid var(--tint-20);
+  z-index:2950;
+  
+  /* oculto fuera de pantalla */
+  transform: translateX(-100%);
+  transition: transform .3s ease;
 }
+/* Capa oscura / clickeable para cerrar el menú */
+.menu-backdrop{
+  position:fixed;
+  inset:0;
+  top: var(--header-h);           /* empieza debajo del header */
+  background:rgba(0,0,0,.25);     /* oscurece un poco el resto */
+  z-index:2900;                   /* debajo del header, encima del contenido */
+  opacity:0;
+  pointer-events:none;            /* por defecto no recibe clics */
+  transition:opacity .25s ease;
+}
+
+.menu-backdrop.active{
+  opacity:1;
+  pointer-events:auto;            /* ahora sí recibe clics y cierra el menú */
+}
+
+/* cuando está abierto */
+.mobile-menu.active{
+  transform: translateX(0);
+}
+
 .mobile-menu a{
   color:var(--ink);
   text-decoration:none;
@@ -113,10 +146,10 @@ nav{
   text-transform:uppercase;
   letter-spacing:1px;
 }
-
-.mobile-menu.active{ display:flex; }
-
-.mobile-menu a:hover, .mobile-menu a:active{ color:var(--accent); }
+.mobile-menu a:hover,
+.mobile-menu a:active{
+  color:var(--accent);
+}
 
 /* --- Ajuste sólo para ESCRITORIO grande: margen negativo de “recorte” --- */
 @media (min-width:1025px){
@@ -133,36 +166,39 @@ nav{
 /* =========================================================
    RESPONSIVE HEADER (<= 768px)
    ========================================================= */
+/* =========================================================
+   RESPONSIVE HEADER (<= 768px) — hamburguesa flotante
+   ========================================================= */
 @media (max-width:768px){
   :root{ --header-h:64px; }
 
-  /* Header en grilla: [hamburguesa] [logo] [spacer] */
+  /* Header transparente para que se vea la imagen detrás */
+  header{
+    background: transparent;
+    border-bottom: none;
+  }
+
+  /* Nav simple, sin forzar grilla */
   nav{
     height: var(--header-h);
     padding: 0 8px;
-    display: grid;
-    grid-template-columns: 44px 1fr 44px;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 100;
   }
 
-  /* Botón hamburguesa a la IZQUIERDA */
-  .menu-toggle{
-    display:block;
-    grid-column:1;
-    justify-self:start;
-    font-size:24px;
-    background:none; border:0; color:var(--ink);
-  }
-
-  /* Logo CENTRADO */
+  /* Logo centrado */
   .logo{
-    grid-column:2;
-    justify-self:center;
     margin-left:0;
     overflow:visible;
     height: var(--header-h);
-    display:flex; align-items:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
+
   .logo img{
     height: 300px;               
     width:auto;
@@ -171,16 +207,46 @@ nav{
     display:block;
   }
 
-  /* Espaciador a la derecha: equilibra visualmente */
-  .nav-spacer{ grid-column:3; width:44px; height:1px; }
-
   /* Ocultamos menú de escritorio */
   .nav-links{ display:none !important; }
 
-  /* Panel del menú móvil bajo el header fijo */
-  .mobile-menu{ top: var(--header-h); }
-}
+  /* 🔥 Botón hamburguesa flotante arriba de la imagen, a la IZQUIERDA */
+  .menu-toggle{
+    display:block;
+    position:fixed;
+    top: 72px;
+    left: 12px;
+    z-index: 3100;
 
+    width: 42px;
+    height: 42px;
+    display:grid;
+    place-items:center;
+
+    background: rgba(241,233,213,0.96);  /* circulito beige */
+    border-radius: 999px;
+    border: 1px solid var(--tint-20);
+    box-shadow: 0 4px 14px rgba(0,0,0,.22);
+    color: var(--ink);
+    cursor:pointer;
+  }
+
+  .menu-toggle i{
+    font-size: 20px;
+  }
+
+  /* El menú lateral arranca desde el tope de la pantalla,
+     dejando espacio para la hamburguesa */
+  .mobile-menu{
+    top: 0;
+    padding-top: 72px;
+  }
+
+  /* El backdrop cubre toda la pantalla desde arriba */
+  .menu-backdrop{
+    top: 0;
+  }
+}
 
 /* =========================================================
    HERO

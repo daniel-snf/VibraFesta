@@ -2,19 +2,37 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   // ================================
-  // Mobile Menu Toggle
+  // Mobile Menu Toggle (con slide y backdrop)
   // ================================
-  const menuToggle = document.getElementById('menuToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  
-  if (menuToggle && mobileMenu){
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.toggle('active');
+  const menuToggle   = document.getElementById('menuToggle');
+  const mobileMenu   = document.getElementById('mobileMenu');
+  const menuBackdrop = document.getElementById('menuBackdrop'); // <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  function closeMenu() {
+    if (mobileMenu)   mobileMenu.classList.remove('active');
+    if (menuBackdrop) menuBackdrop.classList.remove('active');
+  }
+
+  function toggleMenu() {
+    if (!mobileMenu || !menuBackdrop) return;
+    const isOpen = mobileMenu.classList.toggle('active');
+    menuBackdrop.classList.toggle('active', isOpen);
+  }
+
+  if (menuToggle && mobileMenu && menuBackdrop){
+    // abrir / cerrar con el botón hamburguesa
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
     });
-    // cerrar al clickear cualquier link
+
+    // cerrar al clickear cualquier link del menú
     mobileMenu.querySelectorAll('a').forEach(a =>
-      a.addEventListener('click', () => mobileMenu.classList.remove('active'))
+      a.addEventListener('click', () => closeMenu())
     );
+
+    // cerrar tocando fuera (la mitad derecha de la pantalla)
+    menuBackdrop.addEventListener('click', closeMenu);
   }
 
   // ================================
@@ -50,23 +68,25 @@ document.addEventListener('DOMContentLoaded', function() {
   // Smooth scrolling for anchor links
   // ================================
   document.querySelectorAll('a[href^="#"], a[href^="/#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-          let targetId = this.getAttribute('href');
-          if (targetId.startsWith('/#')) {
-            targetId = targetId.substring(1); 
-          }
-          if (!targetId || targetId === '#') return;
-  
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            e.preventDefault();
-            window.scrollTo({
-              top: targetElement.offsetTop - 80,
-              behavior: 'smooth'
-            });
-            if (mobileMenu) mobileMenu.classList.remove('active');
-          }
-      });
+    anchor.addEventListener('click', function(e) {
+      let targetId = this.getAttribute('href');
+      if (targetId.startsWith('/#')) {
+        targetId = targetId.substring(1); 
+      }
+      if (!targetId || targetId === '#') return;
+
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        // cerrar menú móvil si estaba abierto
+        if (mobileMenu)   mobileMenu.classList.remove('active');
+        if (menuBackdrop) menuBackdrop.classList.remove('active');
+      }
+    });
   });
 
   // ================================
@@ -162,7 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // ================================
   // Lightbox de galería (gallery.html)
   // ================================
-  // ... (Tu código de lightbox está perfecto y no se toca) ...
   (function ensureLightbox() {
     if (document.getElementById('lightbox')) return;
     const wrapper = document.createElement('div');
@@ -183,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>`;
     document.body.appendChild(wrapper.firstElementChild);
   })();
+
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lbImg');
   const lbInner = document.getElementById('lightboxInner');
@@ -192,9 +212,11 @@ document.addEventListener('DOMContentLoaded', function() {
   let images = [];
   let idx = 0;
   let touchStartX = null;
+
   function collectImages() {
     images = Array.from(document.querySelectorAll('.photos img'));
   }
+
   function openAt(i) {
     if (!images.length) collectImages();
     if (!images.length) return;
@@ -208,14 +230,17 @@ document.addEventListener('DOMContentLoaded', function() {
     lb.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
   }
+
   function closeLb() {
     lb.classList.remove('active');
     lb.setAttribute('aria-hidden', 'true');
     document.body.classList.remove('modal-open');
     lbImg.removeAttribute('src'); // liberar memoria
   }
+
   function prev() { openAt(idx - 1); }
   function next() { openAt(idx + 1); }
+
   document.addEventListener('click', (e) => {
     const img = e.target.closest('.photos img');
     if (!img) return;
@@ -224,21 +249,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const i = images.indexOf(img);
     if (i >= 0) openAt(i);
   });
+
   if (btnPrev) btnPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
   if (btnNext) btnNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
   if (btnClose) btnClose.addEventListener('click', (e) => { e.stopPropagation(); closeLb(); });
+
   lb.addEventListener('click', (e) => {
     if (!lbInner.contains(e.target)) closeLb();
   });
+
   document.addEventListener('keydown', (e) => {
     if (!lb.classList.contains('active')) return;
     if (e.key === 'Escape') closeLb();
     else if (e.key === 'ArrowLeft') prev();
     else if (e.key === 'ArrowRight') next();
   });
+
   lb.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].clientX;
   }, { passive: true });
+
   lb.addEventListener('touchend', (e) => {
     if (touchStartX === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX;
@@ -246,11 +276,9 @@ document.addEventListener('DOMContentLoaded', function() {
     touchStartX = null;
   }, { passive: true });
   
-  
   // ================================
   // Cargar Mensajes (Felicitaciones)
   // ================================
-  // Se llama a la función.
   cargarMensajes();
   
 }); // <-- FIN DEL document.addEventListener('DOMContentLoaded')
@@ -258,59 +286,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ======================================================
 // Función para cargar mensajes desde la API
-// (Esta función está fuera de DOMContentLoaded)
 // ======================================================
 async function cargarMensajes() {
-    
-    // 1. Selecciona el contenedor. Solo busca ".Mensajes-grid"
-    const contenedor = document.querySelector('.Mensajes-grid');
+  const contenedor = document.querySelector('.Mensajes-grid');
 
-    // 2. Si no encuentra ".Mensajes-grid" en la página, 
-    // no hace nada y termina. (Esto es lo que lo hace seguro)
-    if (!contenedor) {
-        return;
+  if (!contenedor) {
+    return;
+  }
+
+  const urlDeLaApi = 'https://script.google.com/macros/s/AKfycbylumG7o0d-ZilviTDlR0vc17MiyVgznTZHhk4AZg1aBsklV6ByG6mPCEsxg9SeaKwI/exec';
+  
+  contenedor.innerHTML = '<p>Cargando felicitaciones...</p>';
+
+  try {
+    const respuesta = await fetch(urlDeLaApi);
+    if (!respuesta.ok) throw new Error(`Error HTTP: ${respuesta.status}`);
+    
+    const data = await respuesta.json();
+    const mensajes = data.mensajes;
+    console.log(mensajes);
+
+    if (mensajes.length === 0) {
+      contenedor.innerHTML = '<p>Aún no hay felicitaciones para mostrar.</p>';
+      return;
     }
 
-    // 3. Si lo encuentra, procede a cargar...
-    const urlDeLaApi = 'https://script.google.com/macros/s/AKfycbylumG7o0d-ZilviTDlR0vc17MiyVgznTZHhk4AZg1aBsklV6ByG6mPCEsxg9SeaKwI/exec';
-    
-    contenedor.innerHTML = '<p>Cargando felicitaciones...</p>';
+    contenedor.innerHTML = ''; // Limpia el "cargando"
 
-    try {
-        const respuesta = await fetch(urlDeLaApi);
-        if (!respuesta.ok) throw new Error(`Error HTTP: ${respuesta.status}`);
-        
-        const data = await respuesta.json();
-        const mensajes = data.mensajes
-        console.log(mensajes)
+    mensajes.forEach(mensaje => {
+      const tarjeta = document.createElement('div');
+      tarjeta.className = 'Mensaje-card'; 
 
-        if (mensajes.length === 0) {
-            contenedor.innerHTML = '<p>Aún no hay felicitaciones para mostrar.</p>';
-            return;
-        }
+      tarjeta.innerHTML = `
+        <p class="Mensaje-quote">
+          "${mensaje[0]}"
+        </p>
+        <div class="Mensaje-author">
+          <div class="author-name">${mensaje[1]}</div>
+        </div>
+      `;
+      
+      contenedor.appendChild(tarjeta);
+    });
 
-        contenedor.innerHTML = ''; // Limpia el "cargando"
-
-        mensajes.forEach(mensaje => {
-            const tarjeta = document.createElement('div');
-            
-            // 4. Usa la clase ".Mensaje-card" (No toca a .testimonial-card)
-            tarjeta.className = 'Mensaje-card'; 
-
-            tarjeta.innerHTML = `
-                <p class="Mensaje-quote">
-                    "${mensaje[0]}"
-                </p>
-                <div class="Mensaje-author">
-                    <div class="author-name">${mensaje[1]}</div>
-                </div>
-            `;
-            
-            contenedor.appendChild(tarjeta);
-        });
-
-    } catch (error) {
-        console.error('Falló la carga de mensajes:', error);
-        contenedor.innerHTML = '<p>No se pudieron cargar las felicitaciones. Por favor, intente más tarde.</p>';
-    }
+  } catch (error) {
+    console.error('Falló la carga de mensajes:', error);
+    contenedor.innerHTML = '<p>No se pudieron cargar las felicitaciones. Por favor, intente más tarde.</p>';
+  }
 }
