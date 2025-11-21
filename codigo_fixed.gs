@@ -1,26 +1,47 @@
 function doPost(e) {
+  Logger.log('--- NUEVA RESERVA (JSON/FETCH) ---');
+
   try {
-    Logger.log('--- NUEVA RESERVA (FIXED) ---');
-    // e.parameter holds single values, e.parameters holds arrays
-    Logger.log(JSON.stringify(e.parameters));
+    // 1. Obtener datos. 
+    // Si viene por fetch(JSON), los datos están en e.postData.contents
+    // Si viene por Form tradicional, están en e.parameter
+    let data = {};
+    
+    if (e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (jsonErr) {
+        // Si falla el parse, quizás no es JSON válido
+        Logger.log('Error parseando JSON: ' + jsonErr);
+        data = e.parameter; // Fallback
+      }
+    } else {
+      data = e.parameter;
+    }
+
+    Logger.log(JSON.stringify(data));
 
     const ss = SpreadsheetApp.openById('1lksuFoxJ6fqmitTzY-WaCyLn-ls41R_tPzoeBBrxo7E');
     const sheet = ss.getSheetByName('Respuestas');
 
-    // Use e.parameter for single fields
-    const p = e.parameter;
-    const nombre    = p.nombre    || '';
-    const telefono  = p.telefono  || '';
-    const correo    = p.correo    || '';
-    const instagram = p.instagram || '';
-    const plan      = p.plan      || '';
+    const nombre    = data.nombre    || '';
+    const telefono  = data.telefono  || '';
+    const correo    = data.correo    || '';
+    const instagram = data.instagram || '';
+    const plan      = data.plan      || '';
 
-    // Use e.parameters for checkboxes (clases)
-    // This ensures we get ALL selected classes, not just the first one
+    // Manejo de clases (puede venir como array en JSON o como param múltiple en form)
     let clasesArr = [];
-    if (e.parameters.clases) {
-      clasesArr = e.parameters.clases;
+    if (Array.isArray(data.clasesArray)) {
+      clasesArr = data.clasesArray;
+    } else if (data.clases) {
+      // Si viene del form tradicional (checkboxes con mismo name="clases")
+      // En JSON puro esto no pasa igual que en e.parameters, 
+      // pero si usas el código anterior, esto lo cubre.
+      // Para el fetch actual del usuario, usa 'clasesArray'.
+      clasesArr = Array.isArray(data.clases) ? data.clases : [data.clases];
     }
+    
     const clasesTexto = clasesArr.join(', ');
 
     const CLASS_MAP = [
@@ -40,11 +61,10 @@ function doPost(e) {
       clasesArr.includes(label) ? 1 : ''
     );
 
-    // --- FILE UPLOAD HANDLING (BASE64) ---
+    // --- MANEJO DE ARCHIVO (BASE64) ---
     let fileUrl = '';
     
-    // Check if we have the hidden fields populated
-    if (p.fileData && p.fileName) {
+    if (data.fileData && data.fileName) {
       try {
         const folder = DriveApp.getFolderById('1DmFDNqrbLbMqol_wo9E0WJGSX0RYBztJ');
         
@@ -55,11 +75,12 @@ function doPost(e) {
           'yyyyMMdd_HHmmss'
         );
         
-        const finalName = timestamp + '_' + safeName + '_' + p.fileName;
+        const finalName = timestamp + '_' + safeName + '_' + data.fileName;
         
-        // Decode Base64
-        const decodedBytes = Utilities.base64Decode(p.fileData);
-        const blob = Utilities.newBlob(decodedBytes, p.fileMimeType || 'application/octet-stream', finalName);
+        // Decodificar Base64
+        const decodedBytes = Utilities.base64Decode(data.fileData);
+        const mimeType = data.fileType || 'application/octet-stream';
+        const blob = Utilities.newBlob(decodedBytes, mimeType, finalName);
         
         const file = folder.createFile(blob);
         fileUrl = file.getUrl();
@@ -97,4 +118,12 @@ function doPost(e) {
       .createTextOutput(JSON.stringify({ ok: false, error: String(err) }))
       .setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+function doOptions(e) {
+  // Necesario para CORS si se hiciera fetch desde otro dominio, 
+  // aunque con 'no-cors' no se usa realmente, es buena práctica tenerlo.
+  return ContentService.createTextOutput('')
+    .setMimeType(ContentService.MimeType.TEXT)
+    .append('ok');
 }

@@ -41,6 +41,70 @@
       color: #0369a1;
       margin-bottom: 10px;
     }
+
+    /* === Caja de datos de pago (verde #76823A) === */
+    .pay-box {
+      margin: 14px 0 18px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #f7f9ef;          /* fondo clarito */
+      border: 1px solid #d9e3bd;    /* borde suave */
+      font-size: 13px;
+    }
+    .pay-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #76823A;
+    }
+    .pay-bank {
+      font-size: 13px;
+      color: #76823A;
+      margin-bottom: 8px;
+    }
+    .copy-field {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: #fff;
+      margin-top: 4px;
+      border: 1px dashed #cbd5e1;
+    }
+    .copy-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .copy-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: #64748b;
+    }
+    .copy-value {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 14px;
+      color: #0f172a;
+    }
+    .copy-btn {
+      flex-shrink: 0;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      background: #76823A;
+      color: #f9fafb;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(118, 130, 58, .35);
+    }
+    .copy-btn:hover {
+      background: #5f6a2f;
+    }
+
     form {
       display: flex;
       flex-direction: column;
@@ -294,6 +358,32 @@
         </p>
       </div>
 
+      <!-- AQUÍ ABAJO: bloque de pago móvil, antes del comprobante -->
+      <div class="pay-box">
+        <div class="pay-title">Datos para tu pago móvil</div>
+        <div class="pay-bank">PAGO MÓVIL · Provincial</div>
+
+        <div class="copy-field">
+          <div class="copy-main">
+            <span class="copy-label">Cédula / RIF</span>
+            <span class="copy-value">24853511</span>
+          </div>
+          <button type="button" class="copy-btn" data-copy="24853511">Copiar</button>
+        </div>
+
+        <div class="copy-field">
+          <div class="copy-main">
+            <span class="copy-label">Teléfono</span>
+            <span class="copy-value">04247136841</span>
+          </div>
+          <button type="button" class="copy-btn" data-copy="04247136841">Copiar</button>
+        </div>
+
+        <p class="small" style="margin-top:8px;">
+          Copia estos datos, realiza tu pago móvil a la tasa BCV del día y luego sube el comprobante en el formulario.
+        </p>
+      </div>
+
       <!-- Comprobante -->
       <div class="field">
         <label for="comprobante_pago">
@@ -456,6 +546,32 @@
 
     applyPlanUI();
     updateCount();
+
+    // Lógica de copiar datos de pago
+    const copyButtons = document.querySelectorAll('.copy-btn');
+
+    copyButtons.forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const text = btn.dataset.copy;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const tmp = document.createElement('textarea');
+            tmp.value = text;
+            document.body.appendChild(tmp);
+            tmp.select();
+            document.execCommand('copy');
+            document.body.removeChild(tmp);
+          }
+          const original = btn.textContent;
+          btn.textContent = 'Copiado';
+          setTimeout(() => { btn.textContent = original; }, 1500);
+        } catch (e) {
+          alert('Copia este dato: ' + text);
+        }
+      });
+    });
   </script>
 </body>
 </html>
