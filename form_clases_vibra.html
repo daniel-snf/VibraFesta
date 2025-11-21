@@ -175,8 +175,9 @@
       </p>
     </div>
 
+    <!-- IMPORTANTE: usamos la URL del propio WebApp -->
     <form id="clasesForm"
-          action="https://script.google.com/macros/s/AKfycbww4CIrTBb-8B9Bn-4Sh5JhYG92-GwcPXcOGKZq7q8CsDsEmKHUTXaspo5lrq8TZAKxrw/exec"
+          action="<?= ScriptApp.getService().getUrl() ?>"
           method="POST"
           enctype="multipart/form-data">
       <!-- Datos personales -->
@@ -413,12 +414,6 @@
         errorMsg.style.display = 'block';
         return;
       }
-
-      // Dejamos que el formulario se envíe normalmente al WebApp de Google.
-      // Si quieres que al volver muestre el mensaje verde:
-      form.addEventListener('reset', () => {
-        successMsg.style.display = 'block';
-      });
     });
 
     // Inicial
