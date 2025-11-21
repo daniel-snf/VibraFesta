@@ -5,420 +5,60 @@
   <title>Reserva de Clases · Vibra Festa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body{
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #ffe4f0 0, #fff 50%, #e0f7ff 100%);
-      margin:0;
-      padding:0;
-      color:#0f172a;
+      background: #ffffff;
     }
-    .wrap{
-      max-width: 640px;
-      margin: 24px auto 32px;
-      background: #ffffffee;
-      border-radius: 24px;
-      padding: 24px 20px 28px;
-      box-shadow: 0 22px 60px rgba(15,23,42,.15);
-      border:1px solid rgba(148,163,184,.35);
+    .frame-wrap {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
     }
-    h1{
-      font-size: 24px;
-      margin:0 0 4px;
-      text-align:center;
+    header {
+      padding: 10px 16px;
+      font-size: 14px;
+      color: #4b5563;
+      border-bottom: 1px solid #e5e7eb;
     }
-    .subtitle{
-      text-align:center;
-      font-size:14px;
-      color:#6b7280;
-      margin-bottom:18px;
+    header strong {
+      color: #0f172a;
     }
-    .badge{
-      display:inline-block;
-      font-size:11px;
-      padding:4px 10px;
-      border-radius:999px;
-      background:rgba(56,189,248,.12);
-      color:#0369a1;
-      margin-bottom:10px;
+    iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
     }
-    form{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
+    .fallback {
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #6b7280;
     }
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      font-size:14px;
-    }
-    label{
-      font-weight:500;
-    }
-    input[type="text"],
-    input[type="tel"],
-    input[type="email"],
-    input[type="file"]{
-      padding:9px 10px;
-      border-radius:10px;
-      border:1px solid #cbd5e1;
-      font-size:14px;
-      outline:none;
-    }
-    input:focus{
-      border-color:#0ea5e9;
-      box-shadow:0 0 0 1px rgba(14,165,233,.5);
-    }
-    .plan-group{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .plan-option{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid #e2e8f0;
-      background:#f8fafc;
-      cursor:pointer;
-    }
-    .plan-option:hover{
-      border-color:#0ea5e9;
-      background:#f0f9ff;
-    }
-    .plan-option input{
-      margin-top:4px;
-    }
-    .plan-body strong{
-      font-size:14px;
-      display:block;
-    }
-    .plan-body span{
-      font-size:13px;
-      color:#64748b;
-    }
-    .small{
-      font-size:12px;
-      color:#6b7280;
-    }
-    .day-block{
-      margin-top:4px;
-    }
-    .day-block h3{
-      font-size:14px;
-      margin:8px 0 4px;
-      color:#0f172a;
-    }
-    .class-list{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      font-size:13px;
-    }
-    .class-item{
-      display:flex;
-      gap:6px;
-      align-items:flex-start;
-    }
-    .note{
-      font-size:12px;
-      color:#64748b;
-      margin-top:4px;
-    }
-    button[type="submit"]{
-      margin-top:8px;
-      padding:10px 14px;
-      border-radius:999px;
-      border:none;
-      background:#0ea5e9;
-      color:#f9fafb;
-      font-weight:600;
-      font-size:15px;
-      cursor:pointer;
-      box-shadow:0 10px 30px rgba(14,165,233,.35);
-    }
-    button[type="submit"]:hover{
-      background:#0284c7;
-    }
-    .success{
-      display:none;
-      margin-top:14px;
-      padding:10px 12px;
-      border-radius:12px;
-      background:#ecfdf5;
-      color:#15803d;
-      font-size:13px;
-      border:1px solid #bbf7d0;
-    }
-    .error{
-      display:none;
-      margin-top:8px;
-      padding:8px 10px;
-      border-radius:10px;
-      background:#fef2f2;
-      color:#b91c1c;
-      font-size:13px;
-      border:1px solid #fecaca;
+    .fallback a {
+      color: #0ea5e9;
+      text-decoration: none;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div style="text-align:center;">
-      <span class="badge">Vibra Festa · Clases</span>
-      <h1>Reserva tus clases</h1>
-      <p class="subtitle">
-        Elige tu plan, selecciona tus horarios y sube el comprobante
-        de la transferencia a la tasa BCV del día.
-      </p>
+  <div class="frame-wrap">
+    <header>
+      <strong>Vibra Festa · Clases</strong> – Si el formulario no se carga, haz click en el enlace de abajo.
+    </header>
+
+    <!-- 👇👇 PEGÁ TU URL DEL WEBAPP ACÁ 👇👇 -->
+    <iframe src="https://script.google.com/macros/s/AKfycbxirgyZAwMzCFkRBUqLqwczthcMXStxupr_-EURvsqelsyxNltTSygrpOY9dOAbxi79yw/exec" allow="camera; microphone"></iframe>
+
+    <div class="fallback">
+      Si no ves el formulario, puedes abrirlo directamente aquí:<br>
+      <a href="https://script.google.com/macros/s/AKfycbxirgyZAwMzCFkRBUqLqwczthcMXStxupr_-EURvsqelsyxNltTSygrpOY9dOAbxi79yw/exec" target="_blank">
+        Abrir formulario de reserva en otra pestaña
+      </a>
     </div>
-
-    <!-- IMPORTANTE: usamos la URL del propio WebApp -->
-    <form id="clasesForm"
-          action="<?= ScriptApp.getService().getUrl() ?>"
-          method="POST"
-          enctype="multipart/form-data">
-      <!-- Datos personales -->
-      <div class="field">
-        <label for="nombre">Nombre y apellido</label>
-        <input type="text" id="nombre" name="nombre" required>
-      </div>
-
-      <div class="field">
-        <label for="telefono">Teléfono</label>
-        <input type="tel" id="telefono" name="telefono" required>
-      </div>
-
-      <div class="field">
-        <label for="correo">Correo</label>
-        <input type="email" id="correo" name="correo" required>
-      </div>
-
-      <div class="field">
-        <label for="instagram">Instagram</label>
-        <input type="text" id="instagram" name="instagram" placeholder="@tuusuario" required>
-      </div>
-
-      <!-- Planes -->
-      <div class="field">
-        <label>Planes</label>
-        <div class="plan-group">
-          <label class="plan-option">
-            <input type="radio" name="plan" value="3 USD · 1 clase" data-max="1" required>
-            <div class="plan-body">
-              <strong>3&nbsp;USD</strong>
-              <span>Incluye 1 clase (sábado o domingo).</span>
-            </div>
-          </label>
-          <label class="plan-option">
-            <input type="radio" name="plan" value="5 USD · 2 clases" data-max="2">
-            <div class="plan-body">
-              <strong>5&nbsp;USD</strong>
-              <span>Incluye 2 clases a elección.</span>
-            </div>
-          </label>
-          <label class="plan-option">
-            <input type="radio" name="plan" value="10 USD · VIP access" data-max="0">
-            <div class="plan-body">
-              <strong>10&nbsp;USD · VIP access</strong>
-              <span>Puedes asistir a todas las clases sábado y domingo (no hace falta seleccionar horarios).</span>
-            </div>
-          </label>
-        </div>
-        <p class="small">
-          Si eliges VIP, no necesitas marcar clases. Para 3 USD marca 1 clase, para 5 USD marca 2 clases.
-        </p>
-      </div>
-
-      <!-- Selección de clases -->
-      <div class="field" id="classSection">
-        <label>Selecciona tus clases</label>
-        <p class="small">
-          Debes seleccionar exactamente
-          <span id="maxSpan">0</span> clase(s). Actualmente: <span id="countSpan">0</span>.
-        </p>
-
-        <div class="day-block">
-          <h3>Sábado</h3>
-          <div class="class-list">
-            <label class="class-item">
-              <input type="checkbox" name="clases[]" class="classCheck"
-                     value="Sábado 11:00 · Fullbody · Wanda Monsalve">
-              <span>11:00 · Fullbody · Wanda Monsalve</span>
-            </label>
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Sábado 11:00 · Yoga · Mari Méndez">
-              <span>11:00 · Yoga · Mari Méndez</span>
-            </label>
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Sábado 16:00 · Pilates · Lisbeida Rangel">
-              <span>16:00 · Pilates · Lisbeida Rangel</span>
-            </label>
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Sábado 17:00 · Stretching · Lisbeida Rangel">
-              <span>17:00 · Stretching · Lisbeida Rangel</span>
-            </label>
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Sábado 18:00 · Yoga · Mari Méndez">
-              <span>18:00 · Yoga · Mari Méndez</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="day-block">
-          <h3>Domingo</h3>
-          <div class="class-list">
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Domingo 11:00 · Fullbody · Wanda Monsalve">
-              <span>11:00 · Fullbody · Wanda Monsalve</span>
-            </label>
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Domingo 11:00 · Yoga · Mari Méndez">
-              <span>11:00 · Yoga · Mari Méndez</span>
-            </label>
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Domingo 16:00 · Pilates · Lisbeida Rangel">
-              <span>16:00 · Pilates · Lisbeida Rangel</span>
-            </label>
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Domingo 17:00 · Stretching · Lisbeida Rangel">
-              <span>17:00 · Stretching · Lisbeida Rangel</span>
-            </label>
-            <label class="class-item">
-              <input type="checkbox" name="clases[]"
-                     class="classCheck"
-                     value="Domingo 18:00 · Yoga · Mari Méndez">
-              <span>18:00 · Yoga · Mari Méndez</span>
-            </label>
-          </div>
-        </div>
-
-        <p class="note">
-          Más adelante, si quieres cambiar tu selección, puedes escribirnos por Instagram.
-        </p>
-      </div>
-
-      <!-- Comprobante -->
-      <div class="field">
-        <label for="comprobante_pago">
-          Comprobante de pago (captura de transferencia a tasa BCV del día)
-        </label>
-        <input type="file" id="comprobante_pago" name="comprobante_pago" accept="image/*" required>
-      </div>
-
-      <button type="submit">Enviar reserva</button>
-
-      <div class="success" id="successMsg">
-        ¡Listo! Tu formulario se envió correctamente. También puedes hacer otra reserva si lo necesitas.
-      </div>
-      <div class="error" id="errorMsg">
-        Ocurrió un error de validación. Revisa que hayas elegido el plan y la cantidad correcta de clases.
-      </div>
-    </form>
   </div>
-
-  <script>
-    const planRadios = document.querySelectorAll('input[name="plan"]');
-    const classSection = document.getElementById('classSection');
-    const classChecks = document.querySelectorAll('.classCheck');
-    const maxSpan = document.getElementById('maxSpan');
-    const countSpan = document.getElementById('countSpan');
-    const form = document.getElementById('clasesForm');
-    const successMsg = document.getElementById('successMsg');
-    const errorMsg = document.getElementById('errorMsg');
-
-    let maxAllowed = 0;
-
-    function updateCount() {
-      const count = Array.from(classChecks).filter(c => c.checked).length;
-      countSpan.textContent = count;
-      return count;
-    }
-
-    function applyPlanUI() {
-      const selected = Array.from(planRadios).find(r => r.checked);
-      if (!selected) return;
-
-      maxAllowed = parseInt(selected.dataset.max || '0', 10);
-
-      if (maxAllowed === 0) {
-        // VIP: ocultamos selección y limpiamos checks
-        classSection.style.display = 'none';
-        classChecks.forEach(c => { c.checked = false; });
-        maxSpan.textContent = '0';
-        countSpan.textContent = '0';
-      } else {
-        classSection.style.display = 'block';
-        maxSpan.textContent = String(maxAllowed);
-        updateCount();
-      }
-    }
-
-    planRadios.forEach(r => {
-      r.addEventListener('change', () => {
-        applyPlanUI();
-      });
-    });
-
-    classChecks.forEach(chk => {
-      chk.addEventListener('change', () => {
-        if (maxAllowed > 0) {
-          const count = updateCount();
-          if (count > maxAllowed) {
-            chk.checked = false;
-            updateCount();
-            alert('Solo puedes elegir ' + maxAllowed + ' clase(s) con este plan.');
-          }
-        } else {
-          updateCount();
-        }
-      });
-    });
-
-    form.addEventListener('submit', (e) => {
-      errorMsg.style.display = 'none';
-      successMsg.style.display = 'none';
-
-      const selected = Array.from(planRadios).find(r => r.checked);
-      if (!selected) {
-        e.preventDefault();
-        errorMsg.textContent = 'Debes elegir un plan.';
-        errorMsg.style.display = 'block';
-        return;
-      }
-
-      const max = parseInt(selected.dataset.max || '0', 10);
-      const count = Array.from(classChecks).filter(c => c.checked).length;
-
-      if (max > 0 && count !== max) {
-        e.preventDefault();
-        errorMsg.textContent = 'Debes seleccionar exactamente ' + max + ' clase(s) para este plan.';
-        errorMsg.style.display = 'block';
-        return;
-      }
-    });
-
-    // Inicial
-    applyPlanUI();
-    updateCount();
-  </script>
 </body>
 </html>
