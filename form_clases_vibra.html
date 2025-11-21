@@ -1,64 +1,189 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Reserva de Clases · Vibra Festa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      height: 100%;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f9fafb;
+      color: #111827;
+    }
+    .shell {
+      max-width: 640px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .muted { color: #6b7280; font-size: 14px; margin-bottom: 20px; }
+    form {
       background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 18px;
+      box-shadow: 0 10px 30px rgba(15,23,42,0.06);
     }
-    .frame-wrap {
-      height: 100vh;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
+    .field {
+      margin-bottom: 14px;
     }
-    header {
-      padding: 10px 16px;
+    label {
+      display: block;
       font-size: 14px;
-      color: #4b5563;
-      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 4px;
+      color: #374151;
     }
-    header strong {
-      color: #0f172a;
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
+      box-sizing: border-box;
     }
-    iframe {
-      flex: 1;
+    input[type="file"] {
+      font-size: 13px;
+    }
+    .checkbox-group {
+      display: grid;
+      gap: 4px;
+      font-size: 14px;
+    }
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 400;
+    }
+    .checkbox-group input {
+      margin: 0;
+    }
+    button[type="submit"] {
+      margin-top: 10px;
       width: 100%;
       border: none;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      color: #ffffff;
+      cursor: pointer;
     }
-    .fallback {
-      padding: 12px 16px;
+    button[disabled] {
+      opacity: .7;
+      cursor: default;
+    }
+    .status {
+      margin-top: 10px;
       font-size: 13px;
       color: #6b7280;
-    }
-    .fallback a {
-      color: #0ea5e9;
-      text-decoration: none;
-      font-weight: 500;
+      min-height: 1em;
     }
   </style>
 </head>
 <body>
-  <div class="frame-wrap">
-    <header>
-      <strong>Vibra Festa · Clases</strong> – Si el formulario no se carga, haz click en el enlace de abajo.
-    </header>
+  <div class="shell">
+    <h1>Reserva tus clases · Vibra Festa</h1>
+    <p class="muted">Completa tus datos, selecciona tu plan y las clases que quieras reservar.</p>
 
-    <!-- 👇👇 PEGÁ TU URL DEL WEBAPP ACÁ 👇👇 -->
-    <iframe src="https://script.google.com/macros/s/AKfycbws0Gg4RrLiS7CopjoXp9Q4xRvdgmqFMbZYSt5HyjtPSqqaWNSSWjX55_CH_aZJ9yfgNg/exec" allow="camera; microphone"></iframe>
+    <form id="reservaForm">
+      <div class="field">
+        <label for="nombre">Nombre y apellido</label>
+        <input id="nombre" name="nombre" type="text" required />
+      </div>
 
-    <div class="fallback">
-      Si no ves el formulario, puedes abrirlo directamente aquí:<br>
-      <a href="https://script.google.com/macros/s/AKfycbws0Gg4RrLiS7CopjoXp9Q4xRvdgmqFMbZYSt5HyjtPSqqaWNSSWjX55_CH_aZJ9yfgNg/exec" target="_blank">
-        Abrir formulario de reserva en otra pestaña
-      </a>
-    </div>
+      <div class="field">
+        <label for="telefono">Teléfono / WhatsApp</label>
+        <input id="telefono" name="telefono" type="tel" required />
+      </div>
+
+      <div class="field">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" name="correo" type="email" />
+      </div>
+
+      <div class="field">
+        <label for="instagram">Instagram</label>
+        <input id="instagram" name="instagram" type="text" />
+      </div>
+
+      <div class="field">
+        <label for="plan">Plan</label>
+        <select id="plan" name="plan" required>
+          <option value="">Selecciona una opción</option>
+          <option value="1 clase">1 clase</option>
+          <option value="2 clases">2 clases</option>
+          <option value="3+ clases">3+ clases</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Clases</label>
+        <div class="checkbox-group">
+          <!-- nombre EXACTO igual a CLASS_MAP del Code.gs -->
+          <label><input type="checkbox" name="clases" value="Sábado 11:00 · Fullbody · Wanda Monsalve"> Sábado 11:00 · Fullbody · Wanda Monsalve</label>
+          <label><input type="checkbox" name="clases" value="Sábado 11:00 · Yoga · Mari Méndez"> Sábado 11:00 · Yoga · Mari Méndez</label>
+          <label><input type="checkbox" name="clases" value="Sábado 16:00 · Pilates · Lisbeida Rangel"> Sábado 16:00 · Pilates · Lisbeida Rangel</label>
+          <label><input type="checkbox" name="clases" value="Sábado 17:00 · Stretching · Lisbeida Rangel"> Sábado 17:00 · Stretching · Lisbeida Rangel</label>
+          <label><input type="checkbox" name="clases" value="Sábado 18:00 · Yoga · Mari Méndez"> Sábado 18:00 · Yoga · Mari Méndez</label>
+          <label><input type="checkbox" name="clases" value="Domingo 11:00 · Fullbody · Wanda Monsalve"> Domingo 11:00 · Fullbody · Wanda Monsalve</label>
+          <label><input type="checkbox" name="clases" value="Domingo 11:00 · Yoga · Mari Méndez"> Domingo 11:00 · Yoga · Mari Méndez</label>
+          <label><input type="checkbox" name="clases" value="Domingo 16:00 · Pilates · Lisbeida Rangel"> Domingo 16:00 · Pilates · Lisbeida Rangel</label>
+          <label><input type="checkbox" name="clases" value="Domingo 17:00 · Stretching · Lisbeida Rangel"> Domingo 17:00 · Stretching · Lisbeida Rangel</label>
+          <label><input type="checkbox" name="clases" value="Domingo 18:00 · Yoga · Mari Méndez"> Domingo 18:00 · Yoga · Mari Méndez</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="comprobante">Comprobante de pago (foto / captura)</label>
+        <input id="comprobante" name="comprobante" type="file" accept="image/*,application/pdf" />
+      </div>
+
+      <button type="submit">Enviar reserva</button>
+      <div class="status" id="statusMsg"></div>
+    </form>
   </div>
+
+  <script>
+    // Pega aquí la URL de tu Web App de Apps Script:
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbws0Gg4RrLiS7CopjoXp9Q4xRvdgmqFMbZYSt5HyjtPSqqaWNSSWjX55_CH_aZJ9yfgNg/exec';
+
+    const form = document.getElementById('reservaForm');
+    const statusMsg = document.getElementById('statusMsg');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      statusMsg.textContent = 'Enviando reserva...';
+      form.querySelector('button[type="submit"]').disabled = true;
+
+      const formData = new FormData(form);
+
+      try {
+        // no-cors: no vamos a leer la respuesta, solo enviar datos
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        });
+
+        // Redirigimos a página de gracias
+        window.location.href = 'gracias_vibra.html';
+      } catch (err) {
+        console.error(err);
+        statusMsg.textContent = 'Hubo un problema al enviar. Por favor intenta de nuevo o escríbenos por WhatsApp.';
+        form.querySelector('button[type="submit"]').disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
+
+
