@@ -156,12 +156,7 @@ nav{
   .logo{ margin-left:-206px; }
 }
 
-/* Centrar el logo #10 en escritorio (3-3-3-1 → 3-3-3-[centrado]) */
-@media (min-width: 901px) {
-  .sponsors-grid .sponsor-box:nth-child(9) {
-    grid-column: 2; /* lo manda a la columna del medio */
-  }
-}
+
 
 /* =========================================================
    RESPONSIVE HEADER (<= 768px)
@@ -567,7 +562,7 @@ section{ padding:80px 0; }
 /* Grid base: 3 columnas fijas centradas */
 .sponsors-grid{
   display: grid;                               /* activa grilla */
-  grid-template-columns: repeat(3, minmax(0,1fr)); /* SIEMPRE 3 columnas */
+  grid-template-columns: repeat(4, minmax(0,1fr)); /* SIEMPRE 3 columnas */
   justify-items: center;                       /* centra cada logo en su celda */
   align-items: center;                         /* centra verticalmente */
   column-gap: 48px;                            /* espacio entre columnas */
