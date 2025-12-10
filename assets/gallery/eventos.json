@@ -1,4 +1,11 @@
-[
+[  {
+    "title": "Diciembre 2025",
+    "slug": "Edicion Navideña",
+    "date": "2025-12-7",
+    "cover": "assets/gallery/DICIEMBRE 2025/cover.jpg",
+    "folder": "DICIEMBRE 2025",
+    "subtitle": "Edición Navideña"
+  },
   {
     "title": "Aniversario II VIBRA",
     "slug": "aniversario-vibra",
