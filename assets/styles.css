@@ -246,22 +246,42 @@ nav{
 /* =========================================================
    HERO
    ========================================================= */
+/* =========================================================
+   HERO (FIX: no cortar flyer)
+   ========================================================= */
 .hero{
-  height:100vh; position:relative;
+  height: calc(100vh - var(--header-h));
+  position:relative;
   margin-top:var(--header-h);
+  overflow:hidden;
+  background: var(--bg);
 }
+
 .hero-slide{
-  position:absolute; inset:0; opacity:0;
+  position:absolute;
+  inset:0;
+  opacity:0;
   transition:opacity 1s ease-in-out;
 }
+
 .hero-slide.active{ opacity:1; }
+
+/* clave */
+.hero-slide picture,
+.hero-slide img.hero-image{
+  width:100%;
+  height:100%;
+  display:block;
+}
+
 .hero-image{
   width:100%;
   height:100%;
-  object-fit: cover;
-  object-position: center 25%;
-  background:var(--bg); /* beige de fondo si sobra */
+  object-fit: contain;        /* ✅ muestra todo */
+  object-position: center;    /* ✅ centrado */
+  background: var(--bg);      /* “letterbox” beige */
 }
+
 
 /* overlay cálido, no negro */
 .hero-overlay{
