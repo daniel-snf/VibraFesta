@@ -4,10 +4,10 @@ import time
 
 # --- CONFIGURACIÓN ---
 # 1. Esta es la carpeta de 1.7 GB que vamos a optimizar
-SOURCE_DIR = r"C:/Users/rosch/OneDrive/Desktop/Vibra/DICIEMBRE2025_OPTIMIZADO"
+SOURCE_DIR = r"C:/Users/rosch/OneDrive/Desktop/Vibra/VibraFesta/VIBRA 07-02"
 
 # 2. Carpeta NUEVA temporal donde irá todo optimizado
-OUTPUT_DIR = r"C:/Users/rosch/OneDrive/Desktop/Vibra/DICIEMBRE2025_OPTIMIZADO2"
+OUTPUT_DIR = r"C:/Users/rosch/OneDrive/Desktop/vIBRA/VibraFesta/VIBRA_07_02_OPT"
 
 # 3. Ajustes de optimización
 MAX_WIDTH = 1200       # Ancho máximo (en píxeles)
@@ -58,7 +58,7 @@ def main():
                 total_size_after += size_after
                 print(f"OK: {source_file_path} ({size_before/1024:.0f} KB) -> {output_file_path} ({size_after/1024:.0f} KB)")
     end_time = time.time()
-    print("\n--- ¡Proceso completado! ---")
+    print("/n--- ¡Proceso completado! ---")
     print(f"Tiempo total: {end_time - start_time:.2f} segundos")
     print(f"Imágenes procesadas: {processed_count}")
     print(f"Tamaño original: {total_size_before / (1024*1024):.2f} MB")
