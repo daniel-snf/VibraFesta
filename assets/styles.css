@@ -277,7 +277,7 @@ nav{
 .hero-image{
   width:100%;
   height:100%;
-  object-fit: contain;        /* 💻 Desktop: muestra todo con márgenes */
+  object-fit: cover;          /* 💻 Desktop: llena de lado a lado */
   object-position: center center;
   background: var(--bg);      /* fondo beige */
 }
@@ -288,6 +288,19 @@ nav{
     object-fit: cover;          /* En móvil llena todo */
     object-position: center 25%; /* Muestra más de la parte superior */
   }
+}
+
+/* ✨ Bordes difuminados en la imagen */
+.hero-slide::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px; /* Altura del difuminado */
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 1;
 }
 
 
@@ -377,7 +390,7 @@ section{ padding:80px 0; }
 /* 📱 Reducir espacio en móvil */
 @media (max-width: 768px) {
   .about {
-    padding-top: 40px; /* Menos espacio arriba */
+    padding-top: 10px; /* Mucho menos espacio arriba */
   }
 }
 
