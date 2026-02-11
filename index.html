@@ -58,11 +58,24 @@
 
     <section class="hero" id="home">
         <div class="hero-slide active">
-            <img
-                src="img/CALENDARIO.png"
-                alt="Calendario Vibra Festa - Próximos Eventos"
-                class="hero-image"
-            />
+            <picture>
+                <!-- 📱 Móvil: CALENDARIO.png -->
+                <source
+                    srcset="img/CALENDARIO.png"
+                    media="(max-width: 768px)"
+                >
+                <!-- 💻 Desktop: Compu.png -->
+                <source
+                    srcset="img/Compu.png"
+                    media="(min-width: 769px)"
+                >
+                <!-- Fallback -->
+                <img
+                    src="img/Compu.png"
+                    alt="Vibra Festa - Próximos Eventos"
+                    class="hero-image"
+                />
+            </picture>
         </div>
     </section>
 
