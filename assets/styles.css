@@ -872,6 +872,24 @@ main{ padding-top:120px; }
   display:block;
 }
 
+/* Foto destacada cuando se accede por link directo */
+.photo.highlighted {
+  border: 3px solid var(--accent-2);
+  box-shadow: 0 0 0 4px rgba(118, 130, 58, 0.3), 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: pulse-highlight 2s ease-in-out;
+  transform: scale(1.02);
+  z-index: 5;
+}
+
+@keyframes pulse-highlight {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(118, 130, 58, 0.3), 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(118, 130, 58, 0.5), 0 12px 32px rgba(0, 0, 0, 0.3);
+  }
+}
+
 /* Botón de copiar link */
 .copy-link-btn {
   position: absolute;

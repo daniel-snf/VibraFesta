@@ -4,7 +4,7 @@ import time
 
 # --- CONFIGURACIÓN ---
 # 1. Esta es la carpeta de 1.7 GB que vamos a optimizar
-SOURCE_DIR = r"C:/Users/rosch/OneDrive/Desktop/Vibra/VibraFesta/VIBRA 07-02"
+SOURCE_DIR = r"C:/Users/rosch/OneDrive/Desktop/Vibra/VibraFesta/assets/gallery/vibra_febrero2026"
 
 # 2. Carpeta NUEVA temporal donde irá todo optimizado
 OUTPUT_DIR = r"C:/Users/rosch/OneDrive/Desktop/vIBRA/VibraFesta/VIBRA_07_02_OPT"

@@ -204,11 +204,12 @@
         const base = `assets/gallery/${encodeURIComponent(folderUsed)}/fotos/`;
         const imgs = (found.json.images || []);
 
-        photosDiv.innerHTML = imgs.map(name => {
+        photosDiv.innerHTML = imgs.map((name, index) => {
           const webpName = name.replace(/\.[^/.]+$/, ".webp");
-          const photoUrl = `${window.location.origin}/${base}${encodeURIComponent(webpName)}`;
+          // Link a la galería con la foto específica
+          const photoUrl = `${window.location.origin}/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}&photo=${encodeURIComponent(webpName)}`;
           return `
-            <figure class="photo">
+            <figure class="photo" data-photo-name="${webpName}" data-photo-index="${index}">
               <img src="${base}${encodeURIComponent(webpName)}" alt="${ev.title} — ${name}" loading="lazy" decoding="async">
               <button class="copy-link-btn" data-photo-url="${photoUrl}" title="Copiar link de la foto">
                 <i class="fas fa-link"></i>
@@ -241,6 +242,24 @@
             }
           });
         });
+
+        // Si hay un parámetro 'photo' en la URL, hacer scroll y resaltar esa foto
+        const photoParam = params.get('photo');
+        if (photoParam) {
+          const targetPhoto = document.querySelector(`.photo[data-photo-name="${photoParam}"]`);
+          if (targetPhoto) {
+            // Esperar un poco para que las imágenes carguen
+            setTimeout(() => {
+              targetPhoto.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              targetPhoto.classList.add('highlighted');
+
+              // Quitar el highlight después de 3 segundos
+              setTimeout(() => {
+                targetPhoto.classList.remove('highlighted');
+              }, 3000);
+            }, 500);
+          }
+        }
       }
 
       if (!q) await renderList();
