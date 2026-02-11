@@ -209,39 +209,11 @@
           // Link a la galería con la foto específica
           const photoUrl = `${window.location.origin}/gallery.html?event=${encodeURIComponent(ev.slug || ev.title)}&photo=${encodeURIComponent(webpName)}`;
           return `
-            <figure class="photo" data-photo-name="${webpName}" data-photo-index="${index}">
+            <figure class="photo" data-photo-name="${webpName}" data-photo-index="${index}" data-photo-url="${photoUrl}" data-photo-src="${base}${encodeURIComponent(webpName)}">
               <img src="${base}${encodeURIComponent(webpName)}" alt="${ev.title} — ${name}" loading="lazy" decoding="async">
-              <button class="copy-link-btn" data-photo-url="${photoUrl}" title="Copiar link de la foto">
-                <i class="fas fa-link"></i>
-                <span>Copiar link</span>
-              </button>
-              <div class="copy-success-tooltip">¡Link copiado!</div>
             </figure>
           `;
         }).join('');
-
-        // Agregar funcionalidad de copiar
-        document.querySelectorAll('.copy-link-btn').forEach(btn => {
-          btn.addEventListener('click', async (e) => {
-            e.stopPropagation();
-            const url = btn.dataset.photoUrl;
-            const tooltip = btn.nextElementSibling;
-
-            try {
-              await navigator.clipboard.writeText(url);
-              tooltip.classList.add('show');
-              btn.classList.add('copied');
-
-              setTimeout(() => {
-                tooltip.classList.remove('show');
-                btn.classList.remove('copied');
-              }, 2000);
-            } catch (err) {
-              console.error('Error al copiar:', err);
-              alert('No se pudo copiar el link');
-            }
-          });
-        });
 
         // Si hay un parámetro 'photo' en la URL, hacer scroll y resaltar esa foto
         const photoParam = params.get('photo');

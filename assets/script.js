@@ -198,6 +198,19 @@ document.addEventListener('DOMContentLoaded', function() {
           <button class="lb-close" id="lbClose" aria-label="Cerrar">
             <i class="fas fa-times" aria-hidden="true"></i>
           </button>
+          <!-- Botones de acción de la foto -->
+          <div class="lb-actions" id="lbActions">
+            <button class="lb-action-btn" id="lbDownload" title="Descargar imagen">
+              <i class="fas fa-download"></i>
+              <span>Descargar</span>
+            </button>
+            <button class="lb-action-btn" id="lbCopyLink" title="Copiar link">
+              <i class="fas fa-link"></i>
+              <span>Copiar link</span>
+            </button>
+          </div>
+          <!-- Tooltip de éxito -->
+          <div class="lb-copy-tooltip" id="lbCopyTooltip">¡Link copiado!</div>
         </div>
       </div>`;
     document.body.appendChild(wrapper.firstElementChild);
@@ -209,12 +222,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const btnPrev = document.getElementById('lbPrev');
   const btnNext = document.getElementById('lbNext');
   const btnClose = document.getElementById('lbClose');
+  const btnDownload = document.getElementById('lbDownload');
+  const btnCopyLink = document.getElementById('lbCopyLink');
+  const copyTooltip = document.getElementById('lbCopyTooltip');
   let images = [];
+  let imageFigures = [];
   let idx = 0;
   let touchStartX = null;
 
   function collectImages() {
     images = Array.from(document.querySelectorAll('.photos img'));
+    imageFigures = Array.from(document.querySelectorAll('.photos .photo'));
   }
 
   function openAt(i) {
@@ -222,10 +240,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!images.length) return;
     idx = (i + images.length) % images.length;
     const el = images[idx];
+    const figure = imageFigures[idx];
     const src = el.getAttribute('src');
     const alt = el.getAttribute('alt') || '';
     lbImg.src = src;
     lbImg.alt = alt;
+
+    // Guardar datos de la foto actual para descargar y copiar link
+    if (figure) {
+      lbImg.dataset.photoUrl = figure.dataset.photoUrl || '';
+      lbImg.dataset.photoSrc = figure.dataset.photoSrc || src;
+    }
+
     lb.classList.add('active');
     lb.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
@@ -253,6 +279,54 @@ document.addEventListener('DOMContentLoaded', function() {
   if (btnPrev) btnPrev.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
   if (btnNext) btnNext.addEventListener('click', (e) => { e.stopPropagation(); next(); });
   if (btnClose) btnClose.addEventListener('click', (e) => { e.stopPropagation(); closeLb(); });
+
+  // Botón de descargar imagen
+  if (btnDownload) {
+    btnDownload.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const src = lbImg.dataset.photoSrc || lbImg.src;
+      if (!src) return;
+
+      try {
+        const response = await fetch(src);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = src.split('/').pop() || 'foto.webp';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      } catch (err) {
+        console.error('Error al descargar:', err);
+        alert('No se pudo descargar la imagen');
+      }
+    });
+  }
+
+  // Botón de copiar link
+  if (btnCopyLink) {
+    btnCopyLink.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const url = lbImg.dataset.photoUrl;
+      if (!url) return;
+
+      try {
+        await navigator.clipboard.writeText(url);
+        copyTooltip.classList.add('show');
+        btnCopyLink.classList.add('copied');
+
+        setTimeout(() => {
+          copyTooltip.classList.remove('show');
+          btnCopyLink.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        console.error('Error al copiar:', err);
+        alert('No se pudo copiar el link');
+      }
+    });
+  }
 
   lb.addEventListener('click', (e) => {
     if (!lbInner.contains(e.target)) closeLb();

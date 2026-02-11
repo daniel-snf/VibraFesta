@@ -890,78 +890,6 @@ main{ padding-top:120px; }
   }
 }
 
-/* Botón de copiar link */
-.copy-link-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(118, 130, 58, 0.95);
-  color: white;
-  border: none;
-  border-radius: var(--radius-pill);
-  padding: 10px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  opacity: 0;
-  transform: translateY(-5px);
-  transition: all 0.3s ease;
-  z-index: 10;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.photo:hover .copy-link-btn {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.copy-link-btn:hover {
-  background: rgba(118, 130, 58, 1);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-.copy-link-btn:active {
-  transform: translateY(0);
-}
-
-.copy-link-btn.copied {
-  background: rgba(34, 197, 94, 0.95);
-}
-
-.copy-link-btn i {
-  font-size: 14px;
-}
-
-/* Tooltip de éxito */
-.copy-success-tooltip {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
-  background: rgba(34, 197, 94, 0.95);
-  color: white;
-  padding: 12px 24px;
-  border-radius: var(--radius-soft);
-  font-size: 14px;
-  font-weight: 600;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease;
-  z-index: 20;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-}
-
-.copy-success-tooltip.show {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
 /* Escritorio / tablet: se mantiene igual que ahora */
 @media (max-width:1200px){
   .photo{ grid-column:span 4; }
@@ -982,29 +910,6 @@ main{ padding-top:120px; }
   }
   .photo img{
     aspect-ratio:3/4;     /* un poco más "verticalitas", opcional */
-  }
-
-  /* En móvil, mostrar el botón siempre (no solo en hover) */
-  .copy-link-btn {
-    opacity: 0.8;
-    transform: translateY(0);
-    padding: 8px 12px;
-    font-size: 12px;
-    top: 8px;
-    right: 8px;
-  }
-
-  .copy-link-btn span {
-    display: none;
-  }
-
-  .copy-link-btn i {
-    font-size: 16px;
-  }
-
-  .copy-success-tooltip {
-    font-size: 13px;
-    padding: 10px 20px;
   }
 }
 
@@ -1037,10 +942,109 @@ main{ padding-top:120px; }
   display:grid; place-items:center; cursor:pointer; z-index:4001; font-size:18px;
 }
 .lb-close:hover{ background:rgba(255,255,255,.22); }
+
+/* Botones de acción del lightbox (descargar y copiar link) */
+.lb-actions {
+  position: absolute;
+  top: -46px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 4001;
+}
+
+.lb-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(118, 130, 58, 0.95);
+  color: white;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.lb-action-btn:hover {
+  background: rgba(118, 130, 58, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.lb-action-btn:active {
+  transform: translateY(0);
+}
+
+.lb-action-btn.copied {
+  background: rgba(34, 197, 94, 0.95);
+}
+
+.lb-action-btn i {
+  font-size: 16px;
+}
+
+/* Tooltip de éxito para copiar link en lightbox */
+.lb-copy-tooltip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(34, 197, 94, 0.95);
+  color: white;
+  padding: 16px 32px;
+  border-radius: var(--radius-soft);
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 4002;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.lb-copy-tooltip.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
 @media (max-width:700px){
   .lightbox{ padding:16px; }
   .lightbox-inner{ max-width:94vw; max-height:80vh; }
   .lightbox-img{ max-width:94vw; max-height:80vh; }
   .lb-prev{ left:10px; } .lb-next{ right:10px; }
   .lb-close{ top:10px; right:10px; width:36px; height:36px; }
+
+  /* Botones de acción en móvil */
+  .lb-actions {
+    top: auto;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 8px;
+  }
+
+  .lb-action-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .lb-action-btn span {
+    display: none; /* Solo iconos en móvil */
+  }
+
+  .lb-action-btn i {
+    font-size: 18px;
+  }
+
+  .lb-copy-tooltip {
+    font-size: 14px;
+    padding: 12px 24px;
+  }
 }
