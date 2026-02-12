@@ -383,14 +383,17 @@ section{ padding:80px 0; }
 /* =========================================================
    ABOUT
    ========================================================= */
-.about{ background:linear-gradient(to bottom, var(--bg), var(--tint-10)); }
+.about{
+  background:linear-gradient(to bottom, var(--bg), var(--tint-10));
+  padding-top: 20px; /* 💻 Menos espacio en desktop */
+}
 .about-content{ max-width:768px; margin:0 auto; text-align:center; }
 .about-text{ font-size:18px; color:var(--muted); line-height:1.6; margin-bottom:24px; }
 
-/* 📱 Reducir espacio en móvil */
+/* 📱 Reducir aún más en móvil */
 @media (max-width: 768px) {
   .about {
-    padding-top: 10px; /* Mucho menos espacio arriba */
+    padding-top: 5px; /* Casi sin espacio arriba */
   }
 }
 

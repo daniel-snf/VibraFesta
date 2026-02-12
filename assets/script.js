@@ -129,30 +129,33 @@ document.addEventListener('DOMContentLoaded', function() {
   // ================================
   // Formulario de Contacto - Envío de Mensajes
   // ================================
-  const contactForm = document.querySelector('#contact form');
+  const contactForm = document.getElementById('messageForm');
   if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
-      
+
       const messageInput = document.getElementById('message-input');
-      console.log(messageInput);
       const nombreInput = document.getElementById('nombre-input');
-      console.log(nombreInput);
-      
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+
       // Validación básica
       if (!messageInput.value.trim() || !nombreInput.value.trim()) {
         alert('Por favor, completa todos los campos obligatorios.');
         return;
       }
-      
+
+      // Deshabilitar botón mientras envía
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
       // Datos a enviar
       const formData = {
         message: messageInput.value.trim(),
         nombre: nombreInput.value.trim(),
       };
-      
+
       try {
-        // URL de tu API - reemplaza con la URL real de tu API
+        // URL de tu API
         const apiUrl = 'https://script.google.com/macros/s/AKfycbylumG7o0d-ZilviTDlR0vc17MiyVgznTZHhk4AZg1aBsklV6ByG6mPCEsxg9SeaKwI/exec';
         const response = await fetch(apiUrl, {
           method: 'POST',
@@ -162,19 +165,23 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           body: JSON.stringify(formData)
         });
-        if (!response.ok) {
-          // Éxito
-          alert('¡Mensaje enviado con éxito!');
-          contactForm.reset(); // Limpiar el formulario
-          
-          // Opcional: Recargar los mensajes después de enviar uno nuevo
+
+        // Con mode: 'no-cors', siempre se considera exitoso
+        alert('¡Mensaje enviado con éxito!');
+        contactForm.reset(); // Limpiar el formulario
+
+        // Recargar los mensajes después de enviar
+        setTimeout(() => {
           cargarMensajes();
-        } else {
-          throw new Error('Error en la respuesta del servidor');
-        }
+        }, 2000);
+
       } catch (error) {
         console.error('Error al enviar el mensaje:', error);
         alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+      } finally {
+        // Rehabilitar botón
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar mensaje';
       }
     });
   }
