@@ -291,16 +291,11 @@ nav{
 }
 
 /* ✨ Bordes difuminados en la imagen */
-.hero-slide::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px; /* Altura del difuminado */
-  background: linear-gradient(to bottom, transparent, var(--bg));
-  pointer-events: none;
-  z-index: 1;
+@media (max-width: 768px){
+  .hero-slide::after{
+    height: 18px !important;  /* antes 80px: ahora casi nada */
+    opacity: .35 !important;  /* baja el “blanqueo” */
+  }
 }
 
 
