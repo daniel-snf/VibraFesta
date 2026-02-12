@@ -553,8 +553,8 @@ section{ padding:80px 0; }
       height: 52vh !important;     /* probá 45vh–60vh */
       width: 100%;
       display: block;
-      object-fit: contain;         /* mantenés tu look */
-      object-position: center top;
+      object-fit: cover !important;  
+      object-position: center 25%;  
       transform: none !important;
     }
   .Mensajes-grid{
