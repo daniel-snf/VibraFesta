@@ -394,9 +394,9 @@ async function cargarMensajes() {
 
     contenedor.innerHTML = ''; // Limpia el "cargando"
 
-    mensajes.forEach(mensaje => {
+    mensajes.slice().reverse().forEach(mensaje => {
       const tarjeta = document.createElement('div');
-      tarjeta.className = 'Mensaje-card'; 
+      tarjeta.className = 'Mensaje-card';
 
       tarjeta.innerHTML = `
         <p class="Mensaje-quote">
@@ -406,9 +406,10 @@ async function cargarMensajes() {
           <div class="author-name">${mensaje[1]}</div>
         </div>
       `;
-      
-      contenedor.appendChild(tarjeta);
-    });
+
+  contenedor.appendChild(tarjeta);
+});
+
 
   } catch (error) {
     console.error('Falló la carga de mensajes:', error);
