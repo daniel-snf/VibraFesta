@@ -408,6 +408,110 @@ section{ padding:80px 0; }
 }
 
 /* =========================================================
+   GALERÍA CTA (Llamado a la acción para ver galería)
+   ========================================================= */
+.gallery-cta {
+  background: linear-gradient(135deg, var(--accent-2) 0%, #5d6d33 100%);
+  padding: 60px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-cta::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.gallery-cta::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.gallery-cta-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.gallery-cta-title {
+  font-family: var(--brand-display);
+  font-size: 38px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.gallery-cta-text {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.btn-gallery {
+  background: white;
+  color: var(--accent-2);
+  padding: 18px 40px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 2px solid white;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-gallery:hover {
+  background: transparent;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .gallery-cta {
+    padding: 50px 20px;
+  }
+
+  .gallery-cta-title {
+    font-size: 28px;
+  }
+
+  .gallery-cta-text {
+    font-size: 18px;
+    margin-bottom: 28px;
+  }
+
+  .btn-gallery {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 32px;
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
    EVENTS (tarjetas)
    ========================================================= */
 .events-grid{
