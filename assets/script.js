@@ -146,10 +146,10 @@ document.addEventListener('DOMContentLoaded', function() {
       };
 
       try {
+        const params = new URLSearchParams(datos).toString();
         await fetch(
-          'https://script.google.com/macros/s/AKfycbyJ3ujZgG26mc56TzXligLwWTqdRusoMtcMi3Bn8RVgRHlnqGRE0Iw3N2pXpIOREYop2w/exec',
-          { method: 'POST', mode: 'no-cors', body: new URLSearchParams(datos).toString(),
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+          'https://script.google.com/macros/s/AKfycbyJ3ujZgG26mc56TzXligLwWTqdRusoMtcMi3Bn8RVgRHlnqGRE0Iw3N2pXpIOREYop2w/exec?' + params,
+          { method: 'GET', mode: 'no-cors' }
         );
         postulacionForm.style.display = 'none';
         const successMsg = document.getElementById('form-success-message');

@@ -854,23 +854,23 @@ footer{
    ========================================================= */
 body.modal-open{ overflow:hidden; }
 .modal-overlay{
-  position:fixed; inset:0; background:rgba(0,0,0,.85); backdrop-filter:blur(8px);
+  position:fixed; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(6px);
   display:none; align-items:center; justify-content:center; z-index:2000; padding:20px;
   opacity:0; transition:opacity .3s ease;
 }
 .modal-overlay.active{ display:flex; opacity:1; }
 .modal-content{
-  background:#111;
+  background: var(--bg);
   padding:30px 40px;
-  border:1px solid var(--tint-20);
-  border-radius: var(--radius-card);   /* ✅ más redondo como las cards */
+  border:2px solid var(--accent-2);
+  border-radius: var(--radius-card);
   width:100%; max-width:600px;
   position:relative;
   max-height:90vh;
   overflow-y:auto;
   transform:scale(.95);
   transition:transform .3s ease, box-shadow .2s ease;
-  box-shadow:0 18px 50px rgba(0,0,0,.55);
+  box-shadow:0 18px 50px rgba(0,0,0,.25);
 }
 
 .modal-overlay.active .modal-content{ transform:scale(1); }
@@ -878,14 +878,14 @@ body.modal-open{ overflow:hidden; }
   position:absolute; top:10px; right:15px; background:none; border:0; color:var(--muted);
   font-size:32px; cursor:pointer; line-height:1; transition:color .3s ease, transform .3s ease;
 }
-.modal-close:hover{ color:var(--ink); transform:rotate(90deg); }
+.modal-close:hover{ color:var(--accent-2); transform:rotate(90deg); }
 .modal-content .section-title{ margin-bottom:12px; font-size:28px; }
 .modal-subtitle{
   text-align:center; color:var(--muted); margin-bottom:32px; font-size:16px; line-height:1.5;
 }
 .modal-form .form-group{ margin-bottom:20px; text-align:left; }
 .modal-form label{
-  display:block; margin-bottom:8px; font-size:14px; color:var(--tint); font-weight:600;
+  display:block; margin-bottom:8px; font-size:14px; color:var(--accent-2); font-weight:600;
 }
 .modal-form .form-input{ margin-bottom:0; }
 .modal-form .btn{ width:100%; margin-top:10px; }
