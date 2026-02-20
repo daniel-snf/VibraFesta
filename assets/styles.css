@@ -277,9 +277,9 @@ nav{
 .hero-image{
   width:100%;
   height:100%;
-  object-fit: cover;          /* 💻 Desktop: llena de lado a lado */
+  object-fit: contain;        /* 💻 Desktop: muestra imagen completa sin cortar */
   object-position: center center;
-  background: var(--bg);      /* fondo beige */
+  background: var(--bg);      /* fondo beige cubre el espacio restante */
 }
 
 /* 📱 Ajuste para móvil - empieza más abajo */
