@@ -127,6 +127,42 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ================================
+  // Formulario de Postulación - Envío a Google Sheets
+  // ================================
+  const postulacionForm = document.getElementById('applicationForm');
+  if (postulacionForm) {
+    postulacionForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submitPostulacion');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
+      const datos = {
+        nombre:    document.getElementById('nombre').value.trim(),
+        correo:    document.getElementById('correo').value.trim(),
+        whatsapp:  document.getElementById('whatsapp').value.trim(),
+        instagram: document.getElementById('instagram').value.trim(),
+        mensaje:   document.getElementById('mensaje').value.trim()
+      };
+
+      try {
+        await fetch(
+          'https://script.google.com/macros/s/AKfycbyJ3ujZgG26mc56TzXligLwWTqdRusoMtcMi3Bn8RVgRHlnqGRE0Iw3N2pXpIOREYop2w/exec',
+          { method: 'POST', mode: 'no-cors', body: new URLSearchParams(datos).toString(),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+        );
+        postulacionForm.style.display = 'none';
+        const successMsg = document.getElementById('form-success-message');
+        if (successMsg) successMsg.style.display = 'block';
+      } catch (err) {
+        alert('Hubo un error al enviar. Por favor intentá de nuevo.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar Postulación';
+      }
+    });
+  }
+
+  // ================================
   // Formulario de Contacto - Envío de Mensajes
   // ================================
   const contactForm = document.getElementById('messageForm');

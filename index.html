@@ -303,9 +303,7 @@
             <h2 class="section-title">Formulario de <span>Postulación</span></h2>
             <p class="modal-subtitle">Completa tus datos y cuentanos sobre tu proyecto. ¡Nos pondremos en contacto a la brevedad!</p>
             
-            <form action="https://api.web3forms.com/submit" method="POST" id="applicationForm" class="modal-form">
-                <input type="hidden" name="access_key" value="d4c641ca-ba5f-4bbf-a80e-4bcbb5ca6f37">
-
+            <form id="applicationForm" class="modal-form">
                 <div class="form-group">
                     <label for="nombre">Nombre y Apellido</label>
                     <input type="text" id="nombre" name="nombre" class="form-input" required>
@@ -315,23 +313,19 @@
                     <input type="email" id="correo" name="correo" class="form-input" required>
                 </div>
                 <div class="form-group">
-                    <label for="mensaje">cuentanos sobre tu emprendimiento</label>
-                    <textarea id="mensaje" name="mensaje" class="form-input" rows="4" required></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="whatsapp">WhatsApp</label>
+                    <label for="whatsapp">Teléfono</label>
                     <input type="tel" id="whatsapp" name="whatsapp" class="form-input">
                 </div>
-
                 <div class="form-group">
                     <label for="instagram">Usuario de Instagram</label>
                     <input type="text" id="instagram" name="instagram" class="form-input">
                 </div>
-                
-                <div class="h-captcha" data-captcha="true" style="margin-bottom: 20px;"></div>
+                <div class="form-group">
+                    <label for="mensaje">Contanos sobre tu emprendimiento</label>
+                    <textarea id="mensaje" name="mensaje" class="form-input" rows="4" required></textarea>
+                </div>
 
-                <button type="submit" class="btn">Enviar Postulación</button>
+                <button type="submit" class="btn" id="submitPostulacion">Enviar Postulación</button>
             </form>
             <div id="form-success-message" style="display: none; text-align: center; color: var(--accent-2); margin-top: 20px;">
                 <p>¡Gracias! Tu postulación ha sido enviada con éxito. Te contactaremos pronto.</p>
@@ -339,7 +333,6 @@
         </div>
     </div>
 
-    <script src="assets/script.js?v=14"></script>
-    <script src="https://web3forms.com/client/script.js" async defer></script>
+    <script src="assets/script.js?v=15"></script>
 </body>
 </html>
